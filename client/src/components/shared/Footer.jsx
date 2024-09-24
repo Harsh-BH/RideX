@@ -2,48 +2,57 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="w-screen bg-black flex flex-col items-center justify-center  bg-section_bg text-white  py-[50px] px-4  font_tomato_grotesk z-[3] ">
-      <NavLink to="/" className="flex items-center">
-        <p className="text-2xl font-bold text-white">Duber</p>
-      </NavLink>
-      <p className="text-xl text-center px-4 my-1">
-        Made with ❤ by Abbas Bhanpura wala
-      </p>
-      <ul className="flex h-[46px] gap-4  text-[12px] space-x-1 opacity-90 text-neutral-400  lg:gap-6  lg:text-base lg:space-x-2 vvvs:text-[8px] vvvs:gap-2 z-[2]">
-        <a
-          className="hover:text-white"
-          href="https://github.com/Abbas-Dev-786"
-          target="_blank"
-        >
-          Github
-        </a>
-        <li>|</li>
-        <a
-          className="hover:text-white"
-          href="https://www.linkedin.com/in/abbas-bhanpura-wala-81b193231"
-          target="_blank"
-        >
-          Linkedin
-        </a>
-        <li>|</li>
-        <a
-          className="hover:text-white"
-          href="https://www.instagram.com/abbas_bhanpura_wala/"
-          target="_blank"
-        >
-          Instagram
-        </a>
-        <li>|</li>
-        <a
-          className="hover:text-white"
-          href="mailto:abbasbhanpura.dev@gmail.com"
-          target="_blank"
-        >
-          Mail
-        </a>
-      </ul>
-      <p className="text-[10px] opacity-30 text-center px-4 lg:text-[12px]">
-        © All rights reserved by Abbas ✦ Abbas Bhanpura wala
+    <div className="w-screen h-full bg-gray-400 flex flex-col items-left justify-left py-10 px-4 text-black font_tomato_grotesk overflow-hidden">
+
+          {/* Newsletter Section */}
+          <div className="flex mt-6 bg-black p-4 rounded-lg text-white w-96 justify-between items-center">
+        <input
+          type="email"
+          placeholder="Mail"
+          className="bg-transparent border-none focus:outline-none text-white placeholder-white flex-1"
+        />
+        <button className="bg-blue-500 p-2 rounded-full">→</button>
+      </div>
+      {/* Top Section with Multiple Containers */}
+      <div className="flex gap-4">
+        {/* Red Container */}
+        <div className="bg-red-500 w-80 h-48 flex items-center justify-center rounded-xl">
+          {/* Add an icon or image here */}
+          <p className="text-[10rem]">🔲</p>
+        </div>
+        {/* Yellow Container */}
+        <div className="bg-yellow-500 w-80 h-48 flex items-center justify-center rounded-xl max-h-96">
+          {/* Add an icon or image here */}
+          <p className="text-2xl">⚡</p>
+        </div>
+        {/* Add More Containers */}
+        <div className="bg-blue-500 w-48 h-96 flex items-center justify-center rounded-xl">
+          {/* Placeholder icon */}
+          <p className="text-2xl">📦</p>
+        </div>
+        <div className="w-screen bg-gray-400 flex flex-col items-center justify-center py-10 px-4 text-black font_tomato_grotesk">
+  {/* Row of green containers */}
+  <div className="flex w-full gap-4 justify-center">
+    <div className="bg-green-500 w-48 h-24 flex items-center justify-center rounded-xl">
+      {/* Placeholder icon */}
+      <p className="text-2xl text-blue-600">🌐</p>
+    </div>
+    <div className="bg-green-500 w-48 h-24 flex items-center justify-center rounded-xl">
+      {/* Placeholder icon */}
+      <p className="text-2xl text-blue-600">🌐</p>
+    </div>
+  </div>
+</div>
+
+      </div>
+
+
+  
+
+
+      {/* Footer Note */}
+      <p className="mt-4 text-xs opacity-50">
+        © 2024 reown inc. All rights reserved.
       </p>
     </div>
   );

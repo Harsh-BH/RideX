@@ -11,7 +11,7 @@ import { initWeb3InboxClient } from "@web3inbox/react";
 const queryClient = new QueryClient();
 
 // 1. Get projectId from https://cloud.walletconnect.com
-const projectId = import.meta.env.VITE_APPKIT_PROJECT_ID;
+const projectId = "9c702d939dc8dcc1aa1c78f525f113d6";
 
 // 2. Create wagmiConfig
 const metadata = {

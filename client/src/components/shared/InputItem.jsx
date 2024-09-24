@@ -1,80 +1,95 @@
 import { useState, useEffect, useContext } from "react";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { SourceContext } from "../../context/SourceContext";
 import { DestinationContext } from "../../context/DestinationContext";
-
 import sourceImg from "./../../assets/source.png";
 import destImg from "./../../assets/dest.png";
 
 function InputItem({ type }) {
-  const [placeholder, setPlaceholder] = useState("null");
+  const [placeholder, setPlaceholder] = useState("");
   const { setSource, source } = useContext(SourceContext);
   const { setdestination, destination } = useContext(DestinationContext);
-  const [value, setValue] = useState(type == "source" ? source : destination);
+  const [value, setValue] = useState(type === "source" ? source : destination);
+  const [suggestions, setSuggestions] = useState([]); // For holding location suggestions
 
   useEffect(() => {
-    type == "source"
-      ? setPlaceholder("Pickup Location")
-      : setPlaceholder("Dropoff Location");
+    setPlaceholder(type === "source" ? "Pickup Location" : "Dropoff Location");
   }, [type]);
 
-  const getLatandLng = (place, type) => {
-    const placeId = place.value.place_id;
-    const service = new window.google.maps.places.PlacesService(
-      document.createElement("div")
-    );
-    service.getDetails({ placeId }, (result, status) => {
-      if (status === "OK" && result.geometry && result.geometry.location) {
-        if (type == "source") {
-          setSource({
-            lat: result.geometry.location.lat(),
-            lng: result.geometry.location.lng(),
-            name: result.formatted_address,
-            label: result.name,
-          });
-        } else {
-          setdestination({
-            lat: result.geometry.location.lat(),
-            lng: result.geometry.location.lng(),
-            name: result.formatted_address,
-            label: result.name,
-          });
-        }
-        // const lat = result.geometry.location.lat();
-        // const lng = result.geometry.location.lng();
-      }
-    });
+  // Fetch location suggestions from Nominatim
+  const fetchSuggestions = async (query) => {
+    if (!query) {
+      setSuggestions([]);
+      return;
+    }
+    
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${query}`
+      );
+      const data = await response.json();
+      setSuggestions(data);
+    } catch (error) {
+      console.error("Error fetching location data:", error);
+    }
+  };
+
+  // Update location data (source or destination) based on selected suggestion
+  const selectSuggestion = (place, type) => {
+    const { lat, lon, display_name } = place;
+    if (type === "source") {
+      setSource({
+        lat: parseFloat(lat),
+        lng: parseFloat(lon),
+        name: display_name,
+        label: display_name,
+      });
+    } else {
+      setdestination({
+        lat: parseFloat(lat),
+        lng: parseFloat(lon),
+        name: display_name,
+        label: display_name,
+      });
+    }
+    setValue({ label: display_name });
+    setSuggestions([]); // Clear suggestions after selection
   };
 
   return (
     <div className="bg-slate-200 p-3 rounded-lg mt-3 flex items-center gap-4">
       <img
-        src={type == "source" ? sourceImg : destImg}
+        src={type === "source" ? sourceImg : destImg}
         width={15}
         height={15}
       />
-      <GooglePlacesAutocomplete
-        selectProps={{
-          value,
-          onChange: (place) => {
-            getLatandLng(place, type);
-            setValue(place);
-          },
-          placeholder: placeholder,
-          isClearable: true,
-          className: "w-full outline-none",
-          components: {
-            DropdownIndicator: false,
-          },
-          styles: {
-            control: (provided) => ({
-              ...provided,
-              backgroundColor: "#00fff00",
-              border: "none",
-            }),
-          },
-        }}
-      />
+
+      <div className="w-full relative">
+        {/* Input field for searching locations */}
+        <input
+          className="w-full outline-none bg-transparent border-none"
+          value={value?.label || ""}
+          placeholder={placeholder}
+          onChange={(e) => {
+            setValue({ label: e.target.value });
+            fetchSuggestions(e.target.value); // Fetch suggestions on input change
+          }}
+        />
+
+        {/* Render location suggestions */}
+        {suggestions.length > 0 && (
+          <ul className="absolute bg-white z-50 shadow-md max-h-40 overflow-y-auto w-full">
+            {suggestions.map((suggestion) => (
+              <li
+                key={suggestion.place_id}
+                className="p-2 cursor-pointer hover:bg-gray-200"
+                onClick={() => selectSuggestion(suggestion, type)}
+              >
+                {suggestion.display_name}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
