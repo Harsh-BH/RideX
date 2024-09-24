@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-// Duber Smart Contract
-contract Duber {
+// Smart Contract
+contract {
     //  ========= struct declarations start ============
     struct Driver {
         string name;
