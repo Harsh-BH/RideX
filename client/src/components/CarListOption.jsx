@@ -38,19 +38,22 @@ function CarListOption({ distance }) {
   return (
     <div className="mt-5 overflow-auto h-[500px]">
       <h2 className="text-[22px] font-bold">Recommended</h2>
-      {CarListData.map((item, index) => (
-        <div
-          key={index}
-          className={`cursor-pointer p-2 px-4 rounded-md border-black
-          ${activeIndex === index ? "border-[3px]" : ""}`}
-          onClick={() => {
-            setActiveIndex(index);
-            setSelectedCar(item);
-          }}
-        >
-          <CarListItem car={item} distance={distance} />
-        </div>
-      ))}
+      <div className="flex flex-row gap-4 mt-4"> {/* Flex column layout */}
+    {CarListData.map((item, index) => (
+      <div
+        key={index}
+        className={`cursor-pointer p-4 w-full max-w-md rounded-md shadow-lg transition-all duration-300 ease-in-out bg-white
+        ${activeIndex === index ? "border-[3px] border-black" : "border border-gray-200"}`}
+        onClick={() => {
+          setActiveIndex(index);
+          setSelectedCar(item);
+        }}
+      >
+        <CarListItem car={item} distance={distance} />
+      </div>
+    ))}
+  </div>
+
       {selectedCar ? (
         <div className="flex text-[14px] md:pr-0 pr-10 z-10 justify-between fixed bottom-2 bg-white rounded-lg shadow-xl w-full md:w-[30%] border-[1px] items-center">
           <p className="p-1">

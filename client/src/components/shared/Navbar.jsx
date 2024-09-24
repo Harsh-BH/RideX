@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return (
     <header>
-      <nav className="w-full fixed top-0  bg-[#000000] backdrop-blur-md z-50 px-5 md:px-0 py-2.5 ">
+      <nav className="w-[90%] fixed top-0 left-1/2 transform -translate-x-1/2 bg-[rgba(0,0,0,0.75)] backdrop-blur-md z-50 px-8 py-4 rounded-2xl mt-2">
         <div className="flex flex-wrap justify-between items-center mx-auto md:px-20">
           {/* logo side */}
 
@@ -56,7 +56,7 @@ const Navbar = () => {
               </svg>
             </button>
             <NavLink to="/" className="flex items-center">
-              <p className="text-2xl font-bold text-white">Duber</p>
+              <p className="text-2xl font-bold text-white">RideX</p>
             </NavLink>
           </div>
 

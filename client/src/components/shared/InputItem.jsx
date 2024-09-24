@@ -21,7 +21,7 @@ function InputItem({ type }) {
       setSuggestions([]);
       return;
     }
-    
+
     try {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&q=${query}`
@@ -56,17 +56,17 @@ function InputItem({ type }) {
   };
 
   return (
-    <div className="bg-slate-200 p-3 rounded-lg mt-3 flex items-center gap-4">
+    <div className="bg-white p-3 rounded-lg mt-3 flex items-center gap-3 shadow-md">
       <img
         src={type === "source" ? sourceImg : destImg}
-        width={15}
-        height={15}
+        alt={type}
+        className="w-5 h-5"
       />
 
       <div className="w-full relative">
         {/* Input field for searching locations */}
         <input
-          className="w-full outline-none bg-transparent border-none"
+          className="w-full outline-none bg-transparent border-none text-gray-700 placeholder-gray-400 text-sm"
           value={value?.label || ""}
           placeholder={placeholder}
           onChange={(e) => {
@@ -77,11 +77,11 @@ function InputItem({ type }) {
 
         {/* Render location suggestions */}
         {suggestions.length > 0 && (
-          <ul className="absolute bg-white z-50 shadow-md max-h-40 overflow-y-auto w-full">
+          <ul className="absolute bg-white z-50 shadow-lg max-h-40 overflow-y-auto w-full rounded-lg mt-1">
             {suggestions.map((suggestion) => (
               <li
                 key={suggestion.place_id}
-                className="p-2 cursor-pointer hover:bg-gray-200"
+                className="p-2 cursor-pointer hover:bg-gray-100 text-sm"
                 onClick={() => selectSuggestion(suggestion, type)}
               >
                 {suggestion.display_name}

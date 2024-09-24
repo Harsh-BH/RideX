@@ -46,161 +46,132 @@ const Banner = () => {
       libraries={["places"]}
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
     >
-      <div className="w-full h-[680px] flex items-center justify-center bg-black ">
-        <div className="container-lg flex items-center justify-between  px-5 h-[555px]">
-          <div className="container h-[383px]">
-            {/* Left side */}
-            <div className="h-[191px]">
-              {" "}
-              {/* Upper part aka 1st half */}
-              <div className="h-[191px] flex text-center md:text-left flex-col justify-between">
-                <h1 className="text-[52px] font-bold leading-tight text-white">
-                  Go anywhere with Duber
-                </h1>
-                <p className="content-end mb-2 text-[16px] text-white font-normal">
-                  Request a ride, hop in, and go.
-                </p>
-              </div>
-            </div>
-            <div className="h-[191px] mt-2">
-              {" "}
-              {/* Down Part aka 2nd half */}
-              <div className="md:w-[396px] h-[47px] bg-white rounded-lg flex items-center">
-                {" "}
-                {/* Enter location : hold 3 elems -> 1svg , 1i/p , 1svg */}
-                <div className="ml-3">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    data-baseweb="icon"
-                  >
-                    <title>search</title>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm5-2a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                </div>
-                <div className="ml-2 w-full">
-                  <GooglePlacesAutocomplete
-                    selectProps={{
-                      start,
-                      onChange: (place) => {
-                        getLatandLng(place, "source");
-                        setStart(place);
-                      },
-                      placeholder: "Enter location",
-                      isClearable: true,
-                      className: "w-full outline-none",
-                      components: {
-                        DropdownIndicator: false,
-                      },
-                      styles: {
-                        control: (provided) => ({
-                          ...provided,
-                          backgroundColor: "#00fff00",
-                          border: "none",
-                        }),
-                      },
-                    }}
-                  />
-                  {/* <input
-                  className="w-full text-[17px] text-placehol placeholder:text-placehol"
-                  type="text"
-                  placeholder="Enter location"
-                /> */}
-                </div>
-                <div className="ml-auto mr-3">
-                  <svg
-                    width="24px"
-                    height="24px"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    role="button"
-                  >
-                    <title>Navigate right up</title>
-                    <path
-                      d="M10.5 13.5.5 11 21 3l-8 20.5-2.5-10Z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-              <div className="absolute bg-white h-[20px] w-[1px] ml-5 " />
-              {/*2nd input */}
-              <div className="md:w-[396px] h-[47px] mt-[12px] bg-white rounded-lg flex items-center">
-                {" "}
-                {/* Enter destination : hold 2 elems -> 1svg , 1 i/p*/}
-                <div className="ml-3">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    data-baseweb="icon"
-                  >
-                    <title>search</title>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M14 10h-4v4h4v-4ZM7 7v10h10V7H7Z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                </div>
-                <div className="ml-2 w-full">
-                  {" "}
-                  <GooglePlacesAutocomplete
-                    selectProps={{
-                      end,
-                      onChange: (place) => {
-                        getLatandLng(place, "destination");
-                        setEnd(place);
-                      },
-                      placeholder: "Enter destination",
-                      isClearable: true,
-                      className: "w-full outline-none",
-                      components: {
-                        DropdownIndicator: false,
-                      },
-                      styles: {
-                        control: (provided) => ({
-                          ...provided,
-                          backgroundColor: "#00fff00",
-                          border: "none",
-                        }),
-                      },
-                    }}
-                  />
-                  {/* <input
-                    className="w-full text-[17px] placeholder:text-placehol"
-                    type="text"
-                    placeholder="Enter destination"
-                  /> */}
-                </div>
-              </div>
-              {/*Button ( Link! <a />)- see prices */}
-              <div className="w-[127px] h-[48px] mt-[25px] rounded-lg bg-white flex justify-center">
-                <Link
-                  to="/book-ride"
-                  className="text-black  text-[16px] font-medium content-center"
-                >
-                  See prices
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Side : Image */}
-          <div className="hidden md:block">
-            <img src={First} width={552} height={552} alt="First picture" />
-          </div>
+<div className="w-full h-[680px] flex items-center justify-center bg-gray-100 rounded-b-full">
+  <div className="container-lg flex items-center justify-between px-5 h-[555px]">
+    <div className="container h-[383px]">
+      {/* Left side */}
+      <div className="h-[191px]">
+        {/* Upper part aka 1st half */}
+        <div className="h-[191px] flex text-center md:text-left flex-col justify-between">
+          <h1 className="text-[42px] font-semibold leading-tight text-gray-900">
+            Go anywhere with RideX
+          </h1>
+          <p className="text-[16px] text-gray-600 font-normal">
+            Request a ride, hop in, and go.
+          </p>
         </div>
       </div>
+      <div className="h-[191px] mt-4">
+        {/* Location input */}
+        <div className="md:w-[396px] h-[47px] bg-white rounded-md flex items-center shadow-sm border border-gray-300">
+          <div className="ml-3 text-gray-400">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              data-baseweb="icon"
+            >
+              <title>search</title>
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm5-2a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+          <div className="ml-2 w-full">
+            <GooglePlacesAutocomplete
+              selectProps={{
+                start,
+                onChange: (place) => {
+                  getLatandLng(place, "source");
+                  setStart(place);
+                },
+                placeholder: "Enter location",
+                isClearable: true,
+                className: "w-full outline-none",
+                components: {
+                  DropdownIndicator: false,
+                },
+                styles: {
+                  control: (provided) => ({
+                    ...provided,
+                    backgroundColor: "#ffffff",
+                    border: "none",
+                  }),
+                },
+              }}
+            />
+          </div>
+        </div>
+        
+        {/* Destination input */}
+        <div className="md:w-[396px] h-[47px] mt-[12px] bg-white rounded-md flex items-center shadow-sm border border-gray-300">
+          <div className="ml-3 text-gray-400">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              data-baseweb="icon"
+            >
+              <title>search</title>
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M14 10h-4v4h4v-4ZM7 7v10h10V7H7Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+          <div className="ml-2 w-full">
+            <GooglePlacesAutocomplete
+              selectProps={{
+                end,
+                onChange: (place) => {
+                  getLatandLng(place, "destination");
+                  setEnd(place);
+                },
+                placeholder: "Enter destination",
+                isClearable: true,
+                className: "w-full outline-none",
+                components: {
+                  DropdownIndicator: false,
+                },
+                styles: {
+                  control: (provided) => ({
+                    ...provided,
+                    backgroundColor: "#ffffff",
+                    border: "none",
+                  }),
+                },
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Button */}
+        <div className="w-[127px] h-[48px] mt-[25px] rounded-md bg-black flex justify-center items-center">
+          <Link
+            to="/book-ride"
+            className="text-white text-[16px] font-medium"
+          >
+            See prices
+          </Link>
+        </div>
+      </div>
+    </div>
+
+    {/* Right Side : Image */}
+    <div className="hidden md:block">
+      <img src={First} width={552} height={552} alt="First picture" className="object-cover rounded-md shadow-md" />
+    </div>
+  </div>
+</div>
+
+
     </LoadScript>
   );
 };

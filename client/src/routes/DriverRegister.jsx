@@ -3,7 +3,7 @@ import { useWriteContract } from "wagmi";
 import abi from "./../abi/contract.abi.json";
 import { CONTRACT_ADDRESS } from "../constant";
 import { toast } from "react-toastify";
-
+import First from "./../assets/first.webp"; 
 const DriverRegister = () => {
   const [name, setName] = useState("");
   const [license, setLicense] = useState("");
@@ -32,48 +32,62 @@ const DriverRegister = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <form
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-        onSubmit={onSubmit}
-      >
-        <h3 className="text-3xl font-bold mb-4">Become A Driver</h3>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Full Name
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="fullname"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your Full Name"
+    <div className="w-full h-screen flex items-center justify-center bg-gray-50">
+      <div className="flex flex-col md:flex-row shadow-lg rounded-lg overflow-hidden bg-white w-full md:w-[80%] h-[80%]">
+        
+        {/* Left Side: Driver Registration Form */}
+        <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-white">
+          <form onSubmit={onSubmit}>
+            <h3 className="text-3xl font-semibold text-gray-800 mb-6">
+              Become A Driver
+            </h3>
+            <div className="mb-4">
+              <label className="block text-gray-600 text-sm font-medium mb-2">
+                Full Name
+              </label>
+              <input
+                className="shadow-sm border border-gray-300 rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
+                id="fullname"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your Full Name"
+              />
+            </div>
+            <div className="mb-6">
+              <label className="block text-gray-600 text-sm font-medium mb-2">
+                Driving License Number
+              </label>
+              <input
+                className="shadow-sm border border-gray-300 rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
+                id="License"
+                type="number"
+                value={license}
+                onChange={(e) => setLicense(e.target.value)}
+                placeholder="Enter your Driving License Number"
+              />
+            </div>
+            <div className="flex items-center justify-between">
+              <button
+                className="bg-blue-500 mx-auto hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline disabled:bg-blue-300"
+                type="submit"
+                disabled={isPending}
+              >
+                {isPending ? 'Registering...' : 'Register as a Driver'}
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {/* Right Side: Image */}
+        <div className="hidden md:block w-full md:w-1/2">
+          <img
+            src={First}
+            alt="Driver"
+            className="w-full h-full object-cover"
           />
         </div>
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Driving License Number
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="License"
-            type="number"
-            value={license}
-            onChange={(e) => setLicense(e.target.value)}
-            placeholder="Enter your Driving License Number"
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 mx-auto hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-            disabled={isPending}
-          >
-            Register as a Driver
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
   );
 };
