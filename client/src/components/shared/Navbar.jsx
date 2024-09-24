@@ -1,6 +1,4 @@
-// import { Socials } from "../../constants";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 const NAV_LINKS = [
@@ -8,18 +6,54 @@ const NAV_LINKS = [
   { text: "My Trips", link: "/rider/trips" },
   { text: "Notifications", link: "/notification-settings" },
   { text: "Become a Driver", link: "/driver-register" },
-  // { text: "Driver Trips", link: "/driver/trips" },
 ];
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
+  const [account, setAccount] = useState(null);
+  const [tronWebInstalled, setTronWebInstalled] = useState(false);
+
+  useEffect(() => {
+    const checkTronWeb = async () => {
+      if (window.tronWeb && window.tronWeb.ready) {
+        setTronWebInstalled(true);
+        const defaultAccount = window.tronWeb.defaultAddress.base58;
+        setAccount(defaultAccount); // Set the connected account
+      } else {
+        console.log("TronWeb not available. Ensure that TronLink is installed.");
+        setTronWebInstalled(false);
+      }
+    };
+
+    const interval = setInterval(checkTronWeb, 1000); // Check TronWeb every second
+
+    return () => clearInterval(interval); // Clear interval on component unmount
+  }, []);
+
+  const connectTronLink = async () => {
+    try {
+      if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
+        const connectedAccount = window.tronWeb.defaultAddress.base58;
+        setAccount(connectedAccount); // Set account if already connected
+        console.log("Connected to TronLink with account:", connectedAccount);
+      } else {
+        console.error("TronWeb is not ready. Please ensure TronLink is installed and connected.");
+      }
+    } catch (error) {
+      console.error("Error connecting to TronLink:", error);
+    }
+  };
+
+  const disconnectTronLink = () => {
+    setAccount(null); // Remove the account from state
+    console.log("Disconnected from TronLink");
+  };
 
   return (
     <header>
       <nav className="w-[90%] fixed top-0 left-1/2 transform -translate-x-1/2 bg-[rgba(0,0,0,0.75)] backdrop-blur-md z-50 px-8 py-4 rounded-2xl mt-2">
         <div className="flex flex-wrap justify-between items-center mx-auto md:px-20">
           {/* logo side */}
-
           <div className="flex items-center">
             <button
               data-collapse-toggle="mobile-menu-2"
@@ -62,7 +96,35 @@ const Navbar = () => {
 
           {/* Action buttons */}
           <div className="flex items-center lg:order-2">
-            <w3m-button label="Login / Register" />
+            {tronWebInstalled ? (
+              account ? (
+                <div className="flex items-center gap-4">
+                  <div className="text-white font-semibold">
+                    Connected: {account.slice(0, 6)}...{account.slice(-4)}
+                  </div>
+                  <button
+                    onClick={disconnectTronLink}
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg"
+                  >
+                    Disconnect
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={connectTronLink}
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
+                >
+                  Connect TronLink
+                </button>
+              )
+            ) : (
+              <button
+                onClick={() => window.open("https://www.tronlink.org/", "_blank")}
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
+              >
+                Install TronLink
+              </button>
+            )}
           </div>
 
           {/* nav links */}
