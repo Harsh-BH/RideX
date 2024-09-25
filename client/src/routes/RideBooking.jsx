@@ -4,6 +4,7 @@ import Search from "../components/Search";
 import { useState, useEffect } from "react";
 import CarListOption from "../components/CarListOption";
 import BikeLoader from "../components/Loader/BikeLoader"; // Import the BikeLoader
+import Navbar from "../components/shared/Navbar";
 
 const RideBookingPage = () => {
   const [distance, setDistance] = useState(null);
@@ -22,12 +23,14 @@ const RideBookingPage = () => {
       libraries={["places"]}
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
     >
-      {/* Show the loader if loading is true */}
+   
       {loading ? (
         <div>
-          <BikeLoader /> {/* Display the bike loader */}
+          <BikeLoader /> 
         </div>
       ) : (
+        <>
+        <Navbar/>
         <div className="min-h-screen flex flex-col gap-0 md:gap-5 pt-24">
           <div className="h-[60vh] flex flex-col md:flex-row gap-0 md:gap-5">
             {/* Search Section */}
@@ -48,6 +51,7 @@ const RideBookingPage = () => {
             </div>
           )}
         </div>
+        </>
       )}
     </LoadScript>
   );

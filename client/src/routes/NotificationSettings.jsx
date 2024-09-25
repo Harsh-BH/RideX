@@ -1,6 +1,6 @@
 import styles from "./../styles/Notification.module.css";
 
-// import { useCallback, useEffect } from "react";
+import { useCallback, useEffect , useState } from "react";
 // Wagmi Imports
 import { useAccount, useSignMessage } from "wagmi";
 
@@ -16,6 +16,8 @@ import {
 } from "@web3inbox/react";
 import { sendNotification } from "./../utils/fetchNotify";
 import Messages from "./../components/Messages";
+import Navbar from "../components/shared/Navbar";
+import BikeLoader from "../components/Loader/BikeLoader";
 
 // const notificationsPerPage = 5;
 // const isInfiniteScroll = true;
@@ -47,6 +49,8 @@ const NotificationSettings = () => {
   // Subscription
   const { subscribe, isLoading: isSubscribing } = useSubscribe();
   const { unsubscribe, isLoading: isUnsubscribing } = useUnsubscribe();
+  const [loading, setLoading] = useState(true); // New state to handle loading
+
   const { data: subscription } = useSubscription();
   const isSubscribed = Boolean(subscription);
 
@@ -77,7 +81,24 @@ const NotificationSettings = () => {
   //     isInfiniteScroll
   //   );
 
+    // Simulate loading for the map and search components
+    useEffect(() => {
+      // Assuming loading is happening while setting up components (e.g., fetching map data)
+      setTimeout(() => {
+        setLoading(false); // Simulate loading complete after 2 seconds
+      }, 4000); // Adjust time as needed
+    }, []);
+
+
   return (
+    <>
+    {loading ? (
+      <div>
+        <BikeLoader /> 
+      </div>
+    ) : (
+    <>
+    <Navbar/>
     <div className="h-screen">
       <main className={styles.main}>
         <div className={styles.card}>
@@ -124,6 +145,9 @@ const NotificationSettings = () => {
         </div>
       </main>
     </div>
+    </>
+    )}
+    </>
   );
 };
 

@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useWriteContract } from "wagmi";
 import abi from "./../abi/contract.abi.json";
 import { CONTRACT_ADDRESS } from "../constant";
 import { toast } from "react-toastify";
 import First from "./../assets/first.webp"; 
+import Navbar from "../components/shared/Navbar";
+import BikeLoader from "../components/Loader/BikeLoader";
 const DriverRegister = () => {
   const [name, setName] = useState("");
   const [license, setLicense] = useState("");
+  const [loading, setLoading] = useState(true); // New state to handle loading
+
 
   const { data: hash, isPending, writeContract, error } = useWriteContract();
   console.log(hash);
@@ -31,7 +35,24 @@ const DriverRegister = () => {
     });
   };
 
+    // Simulate loading for the map and search components
+    useEffect(() => {
+      // Assuming loading is happening while setting up components (e.g., fetching map data)
+      setTimeout(() => {
+        setLoading(false); // Simulate loading complete after 2 seconds
+      }, 4000); // Adjust time as needed
+    }, []);
+
   return (
+    <>
+    {loading ? (
+      <div>
+        <BikeLoader /> 
+      </div>
+    ) : (
+    <>
+    <Navbar/>
+ 
     <div className="w-full h-screen flex items-center justify-center bg-gray-50">
       <div className="flex flex-col md:flex-row shadow-lg rounded-lg overflow-hidden bg-white w-full md:w-[80%] h-[80%]">
         
@@ -89,6 +110,9 @@ const DriverRegister = () => {
         </div>
       </div>
     </div>
+    </>
+    )};
+    </>
   );
 };
 

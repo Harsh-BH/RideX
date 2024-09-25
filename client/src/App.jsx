@@ -31,7 +31,7 @@ const App = () => {
   return (
     <SourceContext.Provider value={{ source, setSource }}>
       <DestinationContext.Provider value={{ destination, setdestination }}>
-        <Navbar />
+      
         <Notification />
 
         <Routes>
@@ -46,7 +46,7 @@ const App = () => {
           {/* <Route path="/driver/trips" element={<DriverTrips />} /> */}
         </Routes>
 
-        <Footer />
+    
       </DestinationContext.Provider>
     </SourceContext.Provider>
   );

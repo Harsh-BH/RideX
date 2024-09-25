@@ -1,10 +1,13 @@
 import { blocksData } from "../data/data";
 import HeroSection from "../components/HeroSection";
 import Banner from "../components/Banner";
+import Navbar from "../components/shared/Navbar";
+import Footer from "../components/shared/Footer";
 
 const HomePage = () => {
   return (
     <>
+    <Navbar/>
       <Banner />
 
       <div className="flex my-8 flex-col items-center justify-center gap-16"></div>
@@ -23,7 +26,9 @@ const HomePage = () => {
           button={block.button}
           TspecialCaseWMB={block.TspecialCaseWMB}
         />
+      
       ))}
+        <Footer/>
     </>
   );
 };
