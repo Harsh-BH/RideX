@@ -51,15 +51,16 @@ const DriverRegister = () => {
       </div>
     ) : (
     <>
+    <div className="flex flex-col gap-24">
     <Navbar/>
  
-    <div className="w-full h-screen flex items-center justify-center bg-gray-50">
+    <div className="w-full h-88vh flex items-center justify-center bg-gray-50 mt-10">
       <div className="flex flex-col md:flex-row shadow-lg rounded-lg overflow-hidden bg-white w-full md:w-[80%] h-[80%]">
         
         {/* Left Side: Driver Registration Form */}
         <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-white">
           <form onSubmit={onSubmit}>
-            <h3 className="text-3xl font-semibold text-gray-800 mb-6">
+            <h3 className="text-3xl font-bold text-gray-800 mb-6">
               Become A Driver
             </h3>
             <div className="mb-4">
@@ -90,7 +91,7 @@ const DriverRegister = () => {
             </div>
             <div className="flex items-center justify-between">
               <button
-                className="bg-blue-500 mx-auto hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline disabled:bg-blue-300"
+                className="bg-blue-500 mx-auto hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-md focus:outline-none focus:shadow-outline disabled:bg-blue-300 transition"
                 type="submit"
                 disabled={isPending}
               >
@@ -109,6 +110,7 @@ const DriverRegister = () => {
           />
         </div>
       </div>
+    </div>
     </div>
     </>
     )};
