@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useTronLink } from "../utils/useTronLink"; // Assuming this is where you store the contract and account
 import Navbar from "../components/shared/Navbar";
 import BikeLoader from "../components/Loader/BikeLoader";
+import { readContractsQueryKey } from "wagmi/query";
 
 const RiderTrips = () => {
   const [trips, setTrips] = useState([]);
@@ -27,7 +28,11 @@ const RiderTrips = () => {
 
         const result = await ridexContract.getRiderTrips().call();
         console.log(result)
-        setTrips(result);
+
+        result.map((tripId) => {
+          console.log(Number(tripId));
+          getTripDetails(Number(tripId));
+        });
       } else {
         console.error("Ridex contract is not set. Please set the contract before calling getRiderTrips.");
       }
@@ -89,6 +94,18 @@ const RiderTrips = () => {
             className="divide-y divide-gray-200 dark:divide-gray-700"
           >
             {trips.map((trip, index) => (
+  //   struct Trip {
+  //     uint256 tripId;
+  //     address riderAddress;
+  //     address driverAddress;
+  //     string origin;
+  //     string destination;
+  //     uint256 startTime;
+  //     uint256 endTime;
+  //     uint256 fare;
+  //     TripStatus status;
+  //     uint256 transactionId;
+  // }
               <li key={index} className="py-3 sm:py-4">
                 <div className="flex items-center">
                   <div className="flex-1 min-w-0 ms-4">
@@ -107,12 +124,6 @@ const RiderTrips = () => {
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                       Status: {trip.status}
                     </p>
-                    <button
-                      onClick={() => getTripDetails(trip.tripId)} // Fetch trip details on click
-                      className="mt-2 bg-blue-500 text-white py-1 px-3 rounded"
-                    >
-                      View Details
-                    </button>
                   </div>
                 </div>
               </li>
