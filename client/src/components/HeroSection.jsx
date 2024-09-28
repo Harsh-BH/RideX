@@ -17,13 +17,13 @@ const HeroSection = ({
     <div className="h-[10vh] flex justify-center items-center text-5xl font-bold ">THERES A RIDEX FOR EVERYONE</div>
     <div className="flex justify-evenly h-[60vh]">
     <div className="w-1/3 flex flex-col justify-center items-center text-5xl font-bold gap-8">
-    <div className="bg-[url('./assets/ACCESIBLE.jpeg')] h-[330px] w-[330px] bg-cover rounded-2xl"></div>
+    <div className="bg-[url('./assets/ACCESIBLE.jpeg')] h-[330px] w-[330px] bg-cover rounded-lg"></div>
     ACCESIBLE</div>
     <div className="w-1/3 flex flex-col justify-center bg-[url('')] items-center text-5xl font-bold gap-8">
-    <div className="bg-[url('./assets/img2.jpeg')] h-[330px] w-[330px] bg-cover rounded-2xl"></div>
+    <div className="bg-[url('./assets/img2.jpeg')] h-[330px] w-[330px] bg-cover rounded-lg"></div>
     AVAILABLE</div>
     <div className="w-1/3 flex flex-col justify-center bg-[url('')] items-center text-5xl font-bold gap-8">
-    <div className="bg-[url('./assets/AFFORDABLE.jpeg')] h-[330px] w-[330px] bg-cover rounded-2xl"></div>
+    <div className="bg-[url('./assets/AFFORDABLE.jpeg')] h-[330px] w-[330px] bg-cover rounded-lg"></div>
     AFFORDABLE</div>
     </div>
 
