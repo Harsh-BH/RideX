@@ -36,7 +36,7 @@ export const TronLinkProvider = ({ children }) => {
     try {
       if (window.tronWeb && window.tronWeb.ready) {
         console.log("TronWeb is ready. Setting contract...");
-        const contractAddress = 'TAREhBbrj7CDqjeGmJQQXPx59SYNrxo6rN'; // Use your contract address here
+        const contractAddress = 'TNas9Zs2MbVhEqc1uhqtwuf9B89WVZVmBo'; // Use your contract address here
         const contract = await window.tronWeb.contract().at(contractAddress);
         console.log("Contract started:", contract);
         setRidexContract(contract);
