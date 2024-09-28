@@ -117,7 +117,7 @@ const Maps = () => {
     <MapContainer
       center={defaultPosition} // Initial default center
       zoom={20}
-      style={{ height: "70vh", width: "100%" }}
+      style={{ height: "70vh", width: "100%" , zIndex:"2" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import './App.css';
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -17,7 +18,6 @@ function App() {
         setTronWebInstalled(true);
         const defaultAccount = window.tronWeb.defaultAddress.base58;
         setAccount(defaultAccount);
-        connectTronLink();
       } else {
         console.log("TronWeb not available. Ensure that TronLink is installed.");
         setTronWebInstalled(false);
@@ -46,12 +46,9 @@ function App() {
   const connectTronLink = async () => {
     try {
       if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
-        console.log("Connected to TronLink with account:", window.tronWeb.defaultAddress.base58);
         const connectedAccount = window.tronWeb.defaultAddress.base58;
         setAccount(connectedAccount);
         console.log("Connected to TronLink with account:", connectedAccount);
-        setContract();
-        console.log("Contract set successfully");
       } else {
         console.error("TronWeb is not ready. Please ensure TronLink is installed and connected.");
       }

@@ -26,21 +26,7 @@ export const TronLinkProvider = ({ children }) => {
     return () => clearInterval(interval); // Clear interval on component unmount
   }, []);
 
-  const connectTronLink = async () => {
-    try {
-      if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
-        const connectedAccount = window.tronWeb.defaultAddress.base58;
-        setAccount(connectedAccount); // Set account if already connected
-        console.log("Connected to TronLink with account:", connectedAccount);
-        console.log("Contract set successfully");
-      } else {
-        console.error("TronWeb is not ready. Please ensure TronLink is installed and connected.");
-      }
-    } catch (error) {
-      console.error("Error connecting to TronLink:", error);
-    }
-  };
-
+  
   const disconnectTronLink = () => {
     setAccount(null); // Remove the account from state
     console.log("Disconnected from TronLink");
@@ -69,7 +55,7 @@ export const TronLinkProvider = ({ children }) => {
         account,
         tronWebInstalled,
         ridexContract,
-        connectTronLink,
+       
         disconnectTronLink,
       }}
     >
