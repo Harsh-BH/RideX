@@ -15,6 +15,8 @@ import { SourceContext } from "../context/SourceContext";
 import { DestinationContext } from "../context/DestinationContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useTronLink } from "../utils/useTronLink";
+
 
 function CarListOption({ distance }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +25,7 @@ function CarListOption({ distance }) {
   const { source } = useContext(SourceContext);
   const { destination } = useContext(DestinationContext);
   const navigate = useNavigate();
-
+  const { ridexContract, account, tronWebInstalled } = useTronLink();
   const data = useWriteContract();
   const { data: hash, isPending, writeContract, isSuccess } = data;
 
@@ -61,14 +63,25 @@ function CarListOption({ distance }) {
           </p>
           <button
             className="p-3 bg-black text-white rounded-lg text-center"
-            onClick={() => {
+            onClick={async() => {
               setIsOpen(true);
-              writeContract({
-                abi,
-                address: CONTRACT_ADDRESS,
-                functionName: "createTrip",
-                args: [source.name, destination.name],
-              });
+              // writeContract({
+              //   abi,
+              //   address: CONTRACT_ADDRESS,
+              //   functionName: "createTrip",
+              //   args: [source.name, destination.name],
+              // });
+              if (ridexContract) {
+                const result = await ridexContract.createTrip("place1", "place2").send({
+                  feeLimit: 100_000_000,
+                  callValue: 0,
+                  shouldPollResponse: true,
+                });
+                console.log("trip created:", result);
+                // Clear input fields after successful registration
+              } else {
+                console.error("trip not created");
+              }
             }}
           >
             Request {selectedCar.name}
