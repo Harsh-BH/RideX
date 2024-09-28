@@ -33,6 +33,7 @@ const RiderTrips = () => {
           console.log(Number(tripId));
           getTripDetails(Number(tripId));
         });
+        console.log("Trips fetched successfully:", trips);
       } else {
         console.error("Ridex contract is not set. Please set the contract before calling getRiderTrips.");
       }
@@ -48,8 +49,7 @@ const RiderTrips = () => {
         console.log("Fetching trip details...");
         const result = await ridexContract.getTripDetails(tripId).call();
         console.log("result of trips is :",result)
-        console.log("Trip details retrieved:", result);
-        setDetails(result); // Set the details in state
+        setTrips([...trips, result]);
       } else {
         console.error("Ridex contract is not set. Please set the contract before calling getTripDetails.");
       }
@@ -58,7 +58,13 @@ const RiderTrips = () => {
       toast.error("Error fetching trip details: " + error.message);
     }
   };
-
+  const TripStatus = {
+    0: "Created",
+    1: "Accepted",
+    2: "Completed",
+    3: "Cancelled",
+  };
+  
   useEffect(() => {
     fetchRiderTrips(); // Fetch trips on component load
   }, []);
@@ -94,36 +100,25 @@ const RiderTrips = () => {
             className="divide-y divide-gray-200 dark:divide-gray-700"
           >
             {trips.map((trip, index) => (
-  //   struct Trip {
-  //     uint256 tripId;
-  //     address riderAddress;
-  //     address driverAddress;
-  //     string origin;
-  //     string destination;
-  //     uint256 startTime;
-  //     uint256 endTime;
-  //     uint256 fare;
-  //     TripStatus status;
-  //     uint256 transactionId;
-  // }
               <li key={index} className="py-3 sm:py-4">
                 <div className="flex items-center">
                   <div className="flex-1 min-w-0 ms-4">
                     <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                      Trip ID: {trip.tripId}
+                      Trip ID: {Number(trip[0])}
                     </p>
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                      Origin: {trip.origin}
+                      Origin: {trip[3]}
                     </p>
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                      Destination: {trip.destination}
+                      Destination: {trip[4]}
                     </p>
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                      Fare: {trip.fare} TRX
+                      Fare: {Number(trip[7])/1000000} TRX
                     </p>
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                      Status: {trip.status}
+                        Status: {TripStatus[trip[8]] || "Unknown"}
                     </p>
+
                   </div>
                 </div>
               </li>
