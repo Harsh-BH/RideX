@@ -15,7 +15,7 @@ const RideBookingPage = () => {
     // Assuming loading is happening while setting up components (e.g., fetching map data)
     setTimeout(() => {
       setLoading(false); // Simulate loading complete after 2 seconds
-    }, 4000); // Adjust time as needed
+    }, 1000); // Adjust time as needed
   }, []);
 
   return (

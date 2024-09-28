@@ -65,7 +65,6 @@ const RecenterButton = ({ location }) => {
   );
 };
 
-
 // Component to center the map on live location
 const MapCenterOnLocation = ({ location }) => {
   const map = useMap(); // Access the map instance
@@ -113,36 +112,36 @@ const Maps = () => {
   const defaultPosition = [51.505, -0.09]; // Default position if live location isn't available
 
   return (
-    <div style={{ position: "relative" }}>
-    <MapContainer
-      center={defaultPosition} // Initial default center
-      zoom={20}
-      style={{ height: "70vh", width: "100%" , zIndex:"2" }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+    <div style={{ position: "relative", marginTop: "50px" }}> {/* Adjust the margin as needed */}
+      <MapContainer
+        center={defaultPosition} // Initial default center
+        zoom={20}
+        style={{ height: "70vh", width: "100%", position: "relative", zIndex: 1 }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
 
-      {/* Automatically center the map when the user's live location changes */}
-      {userLocation && <MapCenterOnLocation location={userLocation} />}
+        {/* Automatically center the map when the user's live location changes */}
+        {userLocation && <MapCenterOnLocation location={userLocation} />}
 
-      {/* Show user's live location */}
-      {userLocation && (
-        <Marker position={userLocation}>
-          <Popup>Your Current Location</Popup>
-        </Marker>
-      )}
+        {/* Show user's live location */}
+        {userLocation && (
+          <Marker position={userLocation}>
+            <Popup>Your Current Location</Popup>
+          </Marker>
+        )}
 
-      {/* Show directions between source and destination if provided */}
-      {source && destination && (
-        <Directions source={source} destination={destination} />
-      )}
-  
+        {/* Show directions between source and destination if provided */}
+        {source && destination && (
+          <Directions source={source} destination={destination} />
+        )}
 
-{userLocation && <RecenterButton location={userLocation} />}
-</MapContainer>
-</div>
+        {/* Recenter Button */}
+        {userLocation && <RecenterButton location={userLocation} />}
+      </MapContainer>
+    </div>
   );
 };
 

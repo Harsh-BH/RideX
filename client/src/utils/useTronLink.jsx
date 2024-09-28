@@ -21,7 +21,7 @@ export const TronLinkProvider = ({ children }) => {
       }
     };
 
-    const interval = setInterval(checkTronWeb, 1000); // Check TronWeb every second
+    const interval = setInterval(checkTronWeb,100000); // Check TronWeb every second
 
     return () => clearInterval(interval); // Clear interval on component unmount
   }, []);
