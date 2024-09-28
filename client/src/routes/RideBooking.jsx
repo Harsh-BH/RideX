@@ -47,8 +47,8 @@ const RideBookingPage = () => {
 
             {/* Display CarListOption once distance is available */}
             {distance && (
-              <div className="flex justify-center w-full p-6 bg-white text-black">
-                <div className="w-full md:w-[60%]">
+              <div className="flex justify-center items-center w-full p-8 bg-white text-black">
+                <div className="w-full md:w-[100%]">
                   <CarListOption distance={distance} />
                 </div>
               </div>

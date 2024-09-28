@@ -2,6 +2,7 @@ import { useContext } from "react";
 import InputItem from "./shared/InputItem";
 import { SourceContext } from "../context/SourceContext";
 import { DestinationContext } from "../context/DestinationContext";
+import "./search.css"
 
 // Haversine formula to calculate distance between two lat/lng points
 const haversineDistance = (coords1, coords2) => {
@@ -52,13 +53,21 @@ function Search({ setDistance }) {
         </div>
       </div>
       <div className="flex justify-center mt-8">
-        <button
-          className="py-3 px-10 bg-teal-500 hover:bg-teal-600 text-white rounded-full text-lg font-semibold"
-          onClick={calculateDistance}
-        >
-          Find Ride
-        </button>
-      </div>
+  <button
+    className="animated-button"
+    onClick={calculateDistance}
+  >
+    <span>Find Ride</span>
+    
+    {/* Car icon animation */}
+    <div className="car-icon"></div>
+    
+    {/* Speed lines animation */}
+    <div className="speed-lines"></div>
+  </button>
+</div>
+
+
     </div>
   );
 }

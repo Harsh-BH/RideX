@@ -1,0 +1,76 @@
+.animated-button {
+    display: inline-block;
+    padding: 12px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: #14b8a6; /* Teal color */
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(20, 184, 166, 0.3); /* Initial shadow */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .animated-button:hover {
+    background-color: #0d9488; /* Darker teal */
+    box-shadow: 0 8px 20px rgba(20, 184, 166, 0.5); /* Larger shadow on hover */
+    transform: translateY(-3px); /* Lift button on hover */
+  }
+  
+  .animated-button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background-color: rgba(255, 255, 255, 0.15); /* Light glow on hover */
+    border-radius: 50%;
+    transition: all 0.75s ease-in-out;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 1;
+  }
+  
+  .animated-button:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .animated-button:active {
+    transform: translateY(0); /* Return button to original position on click */
+    box-shadow: 0 4px 10px rgba(20, 184, 166, 0.3); /* Return to original shadow */
+  }
+  
+  .car-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url('/path-to-car-icon.svg') no-repeat center center;
+    background-size: contain;
+    position: absolute;
+    top: 50%;
+    left: -40px; /* Position car icon initially off-screen */
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .animated-button:hover .car-icon {
+    transform: translateX(180px); /* Move car icon across the button on hover */
+  }
+  
+  .speed-lines {
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    left: -100%;
+    background: white;
+    opacity: 0.2;
+    transition: left 0.5s ease-in-out, opacity 0.3s;
+    z-index: 1;
+  }
+  
+  .animated-button:hover .speed-lines {
+    left: 100%; /* Move speed lines across the button on hover */
+    opacity: 0.5; /* Increase opacity to make speed lines more visible */
+  }
+  

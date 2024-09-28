@@ -1,0 +1,66 @@
+.recenter-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #007bff 0%, #6610f2 100%); /* Gradient background */
+    color: white;
+    border: none;
+    border-radius: 50px; /* Rounded corners for a pill-shaped button */
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease; /* Smoother transition for hover effects */
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .recenter-button:hover {
+    background: linear-gradient(135deg, #6610f2 0%, #007bff 100%); /* Reverse gradient on hover */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+    transform: translateY(-6px) scale(1.05); /* Move up and slightly enlarge on hover */
+  }
+  
+  .recenter-button:active {
+    transform: translateY(-2px); /* Reduce upward motion on click */
+  }
+  
+  .recenter-button .icon {
+    transition: transform 0.6s ease, color 0.3s ease; /* Smoother, slower spin */
+    color: white; /* Default icon color */
+  }
+  
+  .recenter-button:hover .icon {
+    transform: rotate(720deg) scale(1.2); /* Faster and larger spin on hover */
+    color: #ffe600; /* Change color on hover */
+  }
+  
+  .recenter-button .button-text {
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1.2px; /* Add more spacing between letters for a modern look */
+    text-transform: uppercase; /* Make text all uppercase */
+  }
+  
+  .recenter-button:before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth opacity and transform */
+  }
+  
+  .recenter-button:hover:before {
+    opacity: 1;
+    transform: scale(1.1); /* Create a subtle glow effect around the button */
+  }
+  

@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import "leaflet/dist/leaflet.css";
 import { SourceContext } from "../../context/SourceContext";
 import { DestinationContext } from "../../context/DestinationContext";
+import RecenterButton from './RecenterButton'; // Import the RecenterButton
 
 // Custom hook to get live location
 const useLiveLocation = () => {
@@ -34,35 +35,6 @@ const useLiveLocation = () => {
   }, []);
 
   return location;
-};
-
-const RecenterButton = ({ location }) => {
-  const map = useMap(); // Access the map instance
-
-  const handleRecenter = () => {
-    if (location) {
-      map.setView([location.lat, location.lng], 20); // Recenter map on user's location with zoom level 13
-    }
-  };
-
-  return (
-    <button
-      style={{
-        position: "absolute",
-        top: "10px",
-        right: "10px",
-        zIndex: 1000,
-        padding: "10px 20px",
-        backgroundColor: "white",
-        border: "none",
-        borderRadius: "5px",
-        cursor: "pointer",
-      }}
-      onClick={handleRecenter}
-    >
-      Recenter Map
-    </button>
-  );
 };
 
 // Component to center the map on live location
@@ -112,43 +84,37 @@ const Maps = () => {
   const defaultPosition = [51.505, -0.09]; // Default position if live location isn't available
 
   return (
-    <div style={{ position: "relative", marginTop: "50px" }}> {/* Adjust the margin as needed */}
-     
-
-<MapContainer
-  center={defaultPosition} // Initial default center
-  zoom={20}
-  style={{
-    height: "70vh",
-    width: "100%",
-    position: "relative",
-    zIndex: 1,
-    borderRadius: "15px", // This will give the map rounded corners
-    overflow: "hidden", // Ensure content inside respects the rounded corners
-  }}
->
+    <div style={{ position: "relative", marginTop: "50px" }}>
+      <MapContainer
+        center={defaultPosition} // Initial default center
+        zoom={20}
+        style={{
+          height: "70vh",
+          width: "100%",
+          position: "relative",
+          zIndex: 1,
+          borderRadius: "15px", // Rounded map corners
+          overflow: "hidden",
+        }}
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* Automatically center the map when the user's live location changes */}
         {userLocation && <MapCenterOnLocation location={userLocation} />}
 
-        {/* Show user's live location */}
         {userLocation && (
           <Marker position={userLocation}>
             <Popup>Your Current Location</Popup>
           </Marker>
         )}
 
-        {/* Show directions between source and destination if provided */}
         {source && destination && (
           <Directions source={source} destination={destination} />
         )}
 
-        {/* Recenter Button */}
-        {userLocation && <RecenterButton location={userLocation} />}
+        {userLocation && <RecenterButton location={userLocation} />} {/* Recenter Button */}
       </MapContainer>
     </div>
   );
