@@ -7,13 +7,14 @@ const TronLinkContext = createContext();
 export const TronLinkProvider = ({ children }) => {
   const [account, setAccount] = useState(null);
   const [tronWebInstalled, setTronWebInstalled] = useState(false);
-
+  const [ridexContract,setRidexContract] = useState(null);
   useEffect(() => {
     const checkTronWeb = async () => {
       if (window.tronWeb && window.tronWeb.ready) {
         setTronWebInstalled(true);
         const defaultAccount = window.tronWeb.defaultAddress.base58;
         setAccount(defaultAccount); // Set the connected account
+
       } else {
         console.log("TronWeb not available. Ensure that TronLink is installed.");
         setTronWebInstalled(false);
@@ -31,6 +32,10 @@ export const TronLinkProvider = ({ children }) => {
         const connectedAccount = window.tronWeb.defaultAddress.base58;
         setAccount(connectedAccount); // Set account if already connected
         console.log("Connected to TronLink with account:", connectedAccount);
+        setInterval(async () => {
+          await setContract();
+        }, 3000);
+        console.log("Contract set successfully");
       } else {
         console.error("TronWeb is not ready. Please ensure TronLink is installed and connected.");
       }
@@ -44,11 +49,29 @@ export const TronLinkProvider = ({ children }) => {
     console.log("Disconnected from TronLink");
   };
 
+  const setContract = async () => {
+    try {
+      if (window.tronWeb && window.tronWeb.ready) {
+        console.log("TronWeb is ready. Setting contract...");
+        const contractAddress = 'TAREhBbrj7CDqjeGmJQQXPx59SYNrxo6rN'; // Use your contract address here
+        const contract = await window.tronWeb.contract().at(contractAddress);
+        console.log("Contract started:", contract);
+        setRidexContract(contract);
+        console.log("Contract set successfully:", contract);
+      } else {
+        console.error("TronWeb not available or not ready.");
+      }
+    } catch (error) {
+      console.error("Error setting contract:", error.message);
+    }
+  };
+
   return (
     <TronLinkContext.Provider
       value={{
         account,
         tronWebInstalled,
+        ridexContract,
         connectTronLink,
         disconnectTronLink,
       }}
