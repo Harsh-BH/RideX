@@ -59,7 +59,7 @@ function CarListOption({ distance }) {
       {selectedCar ? (
         <div className="flex text-[14px] md:pr-0 pr-10 z-10 justify-between fixed bottom-2 bg-white rounded-lg shadow-xl w-full md:w-[30%] border-[1px] items-center">
           <p className="p-1">
-            Book for <b>${(selectedCar.amount * distance).toFixed(2)}</b>
+            Book for <b>TRX {Math.floor(selectedCar.amount * distance/10)}</b>
           </p>
           <button
             className="p-3 bg-black text-white rounded-lg text-center"
@@ -72,11 +72,16 @@ function CarListOption({ distance }) {
               //   args: [source.name, destination.name],
               // });
               if (ridexContract) {
-                const result = await ridexContract.createTrip("place1", "place2").send({
-                  feeLimit: 100_000_000,
-                  callValue: 0,
-                  shouldPollResponse: true,
-                });
+                if (ridexContract) {
+                  const callValue = Math.floor(selectedCar.amount * distance / 10) * 1_000_000;  // Convert TRX to SUN
+                  const result = await ridexContract.createTrip(source.name, destination.name).send({
+                    feeLimit: 100_000_000,
+                    callValue: callValue,  // Dynamically calculated TRX value
+                    shouldPollResponse: true,
+                  });
+                  console.log("trip created:", result);
+                }
+                
                 console.log("trip created:", result);
                 // Clear input fields after successful registration
               } else {

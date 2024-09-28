@@ -20,7 +20,7 @@ function CarListItem({ car, distance }) {
           </div>
         </div>
         <h2 className="md:text-[18px] font-semibold break-all sm:text-[5px]">
-          ${(car.amount * distance).toFixed(2)}
+          TRX {Math.floor(car.amount * distance/10)}
         </h2>
       </div>
     </div>
