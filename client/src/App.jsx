@@ -14,6 +14,7 @@ import DriverRegister from "./routes/DriverRegister";
 import Notification from "./components/shared/Notification";
 import RiderTrips from "./routes/RiderTrips";
 import DriverTrips from "./routes/DriverTrips";
+import { TronLinkProvider } from "./utils/useTronLink.jsx";
 
 const App = () => {
   const [source, setSource] = useState([]);
@@ -29,6 +30,7 @@ const App = () => {
   console.log(result, "🥳");
 
   return (
+    <TronLinkProvider>
     <SourceContext.Provider value={{ source, setSource }}>
       <DestinationContext.Provider value={{ destination, setdestination }}>
       
@@ -49,6 +51,7 @@ const App = () => {
     
       </DestinationContext.Provider>
     </SourceContext.Provider>
+    </TronLinkProvider>
   );
 };
 

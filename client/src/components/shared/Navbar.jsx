@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useTronLink } from "../../utils/useTronLink.jsx"; // Import the hook
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const NAV_LINKS = [
@@ -10,44 +11,7 @@ const NAV_LINKS = [
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
-  const [account, setAccount] = useState(null);
-  const [tronWebInstalled, setTronWebInstalled] = useState(false);
-
-  useEffect(() => {
-    const checkTronWeb = async () => {
-      if (window.tronWeb && window.tronWeb.ready) {
-        setTronWebInstalled(true);
-        const defaultAccount = window.tronWeb.defaultAddress.base58;
-        setAccount(defaultAccount); // Set the connected account
-      } else {
-        console.log("TronWeb not available. Ensure that TronLink is installed.");
-        setTronWebInstalled(false);
-      }
-    };
-
-    const interval = setInterval(checkTronWeb, 1000); // Check TronWeb every second
-
-    return () => clearInterval(interval); // Clear interval on component unmount
-  }, []);
-
-  const connectTronLink = async () => {
-    try {
-      if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
-        const connectedAccount = window.tronWeb.defaultAddress.base58;
-        setAccount(connectedAccount); // Set account if already connected
-        console.log("Connected to TronLink with account:", connectedAccount);
-      } else {
-        console.error("TronWeb is not ready. Please ensure TronLink is installed and connected.");
-      }
-    } catch (error) {
-      console.error("Error connecting to TronLink:", error);
-    }
-  };
-
-  const disconnectTronLink = () => {
-    setAccount(null); // Remove the account from state
-    console.log("Disconnected from TronLink");
-  };
+  const { account, tronWebInstalled, connectTronLink, disconnectTronLink } = useTronLink(); // Use the hook
 
   return (
     <header>
@@ -73,18 +37,6 @@ const Navbar = () => {
                 <path
                   fillRule="evenodd"
                   d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              <svg
-                className="hidden w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                   clipRule="evenodd"
                 ></path>
               </svg>
