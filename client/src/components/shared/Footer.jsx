@@ -2,8 +2,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-gray-200 pt-8 pb-6 rounded-t-full">
-      <div className="container mx-auto px-4 mt-20">
+    <footer className="relative bg-black pt-8 pb-6 h-[90vh] flex justify-center items-center">
+      {/* <div className="container mx-auto px-4 mt-20">
         <div className="flex flex-wrap text-left lg:text-left relative md:left-20">
           <div className="w-full lg:w-6/12 px-4">
             <h4 className="text-3xl font-semibold text-blueGray-700">Let's keep in touch!</h4>
@@ -150,7 +150,17 @@ const Footer = () => {
             </div>
           </div>
         </div>
+      </div> */}
+      <div className="w-[120px] h-[120px] rounded-full bg-gradient-to-r from-blue-800 to-purple-700 absolute top-[100px] left-[600px]"></div>
+      <div className="w-[200px] h-[200px] rounded-full bg-gradient-to-b from-red-700 via-orange-700 to-pink-700 absolute left-[410px]"></div>
+      <div className="w-[300px] h-[300px] rounded-full bg-gradient-to-r from-blue-600 to-cyan-300 absolute right-[400px] top-[100px]"></div>
+      <div className="w-[600px] h-[400px] bg-white text-white rounded-3xl bg-opacity-30 backdrop-blur-xl flex flex-col justify-center items-center gap-6">
+        <div className="font-semibold text-2xl">LET'S KEEP IN TOUCH</div>
+        <div className="font-semibold text-center px-[70px]">FIND US ON ANY OF THESE SOCIAL MEDIA PLATFORMS, WE RESPOND WITHIN - BUSINESS DAYS</div>
+
+        daal do bhai links aur logos
       </div>
+      
     </footer>
   );
 };

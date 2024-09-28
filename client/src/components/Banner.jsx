@@ -46,12 +46,12 @@ const Banner = () => {
       libraries={["places"]}
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
     >
-<div className="w-full h-[680px] flex items-center justify-center bg-gray-100 rounded-b-full">
-  <div className="container-lg flex items-center justify-between px-5 h-[555px]">
-    <div className="container h-[383px]">
-      {/* Left side */}
+<div className="w-full bg-[url('./assets/mainbgimage.jpeg')] bg-cover bg-center h-[100vh] flex items-center justify-center rounded-b-[500px]">
+  {/* <div className="container-lg flex items-center justify-between px-5 h-[555px]"> */}
+    {/* <div className="container h-[383px]">
+      
       <div className="h-[191px]">
-        {/* Upper part aka 1st half */}
+       
         <div className="h-[191px] flex text-center md:text-left flex-col justify-between">
           <h1 className="text-[42px] font-semibold leading-tight text-gray-900">
             Go anywhere with RideX
@@ -62,7 +62,7 @@ const Banner = () => {
         </div>
       </div>
       <div className="h-[191px] mt-4">
-        {/* Location input */}
+        Location input
         <div className="md:w-[396px] h-[47px] bg-white rounded-md flex items-center shadow-sm border border-gray-300">
           <div className="ml-3 text-gray-400">
             <svg
@@ -107,7 +107,7 @@ const Banner = () => {
           </div>
         </div>
         
-        {/* Destination input */}
+        
         <div className="md:w-[396px] h-[47px] mt-[12px] bg-white rounded-md flex items-center shadow-sm border border-gray-300">
           <div className="ml-3 text-gray-400">
             <svg
@@ -152,7 +152,7 @@ const Banner = () => {
           </div>
         </div>
 
-        {/* Button */}
+        
         <div className="w-[127px] h-[48px] mt-[25px] rounded-md bg-black flex justify-center items-center">
           <Link
             to="/book-ride"
@@ -164,10 +164,28 @@ const Banner = () => {
       </div>
     </div>
 
-    {/* Right Side : Image */}
+    
     <div className="hidden md:block">
       <img src={First} width={552} height={552} alt="First picture" className="object-cover rounded-md shadow-md" />
-    </div>
+    </div> */}
+    <div className="flex justify-between items-center gap-32 h-full w-full text-white ">
+      <div className="w-1/2 h-full flex flex-col justify-top items-center gap-8 relative top-[25%]">
+      <h1 className="font-bold text-[110px]">COMFORT</h1>
+      <p className="text-[14px] px-[50px] box-border w-[500px] text-left  font-semibold">RIDEX OFFERS ECO-FRIENDLY TRAVEL WITH SECURE, COMFORTABLE RIDES. OUR SUSTAINABLE PRACTICES REDUCE ENVIRONMENTAL IMPACT, WHILE ENSURING SAFETY AND COMFORT REMAIN TOP PRIORITIES FOR EVERY PASSENGER.</p>
+      </div>
+      <div className="w-1/2 h-full flex flex-col justify-top items-center gap-8 relative top-[25%]">
+      <h1 className="font-bold text-[110px]">VOYAGES</h1>
+      <p className="text-[14px] px-[100px] box-border w-[500px] text-right font-semibold">
+      
+      REQUEST A RIDE FOR NOW OR LATER.
+      REQUEST A RIDE, HOP IN, AND GO.
+      </p>
+      <Link to="/book-ride" className="text-[20px] border-2 rounded-md font-semibold border-white px-4 py-2 hover:bg-opacity-25 hover:bg-gray-300 transition  hover:backdrop-blur-sm mr-[-150px]">
+      GET STARTED
+      </Link>
+      </div>
+
+    {/* </div> */}
   </div>
 </div>
 

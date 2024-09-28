@@ -51,14 +51,14 @@ const Navbar = () => {
 
   return (
     <header>
-      <nav className="w-[90%] fixed top-0 left-1/2 transform -translate-x-1/2 bg-[rgba(0,0,0,0.75)] backdrop-blur-md z-50 px-8 py-4 rounded-2xl mt-2">
+      <nav className="w-[90%] fixed top-0 left-1/2 transform -translate-x-1/2 backdrop-blur-md z-50 px-8 py-4 mt-2 border-b-4 border-white rounded-lg">
         <div className="flex flex-wrap justify-between items-center mx-auto md:px-20">
           {/* logo side */}
           <div className="flex items-center">
             <button
               data-collapse-toggle="mobile-menu-2"
               type="button"
-              className="inline-flex items-center mr-2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="inline-flex items-center mr-2 text-sm text-white rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               aria-controls="mobile-menu-2"
               aria-expanded="false"
               onClick={() => setOpen((prev) => !prev)}
@@ -90,7 +90,7 @@ const Navbar = () => {
               </svg>
             </button>
             <NavLink to="/" className="flex items-center">
-              <p className="text-2xl font-bold text-white">RideX</p>
+              <p className="text-2xl font-bold text-gray-400">RideX</p>
             </NavLink>
           </div>
 
@@ -112,7 +112,7 @@ const Navbar = () => {
               ) : (
                 <button
                   onClick={connectTronLink}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
+                  className="bg-gray-500 hover:bg-gray-600 border-2 transition border-white text-white font-bold py-2 px-4 rounded-lg"
                 >
                   Connect TronLink
                 </button>
@@ -120,7 +120,7 @@ const Navbar = () => {
             ) : (
               <button
                 onClick={() => window.open("https://www.tronlink.org/", "_blank")}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
+                className="bg-gray-500 hover:bg-gray-600 border-2 transition border-white text-white font-bold py-2 px-4 rounded-lg"
               >
                 Install TronLink
               </button>
@@ -142,7 +142,7 @@ const Navbar = () => {
                     className={({ isActive }) =>
                       isActive
                         ? "capitalize block py-2 pr-4 pl-3 text-white font-bold rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
-                        : "capitalize block py-2 pr-4 pl-3 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                        : "capitalize block py-2 pr-4 pl-3 text-white font-semiboold border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-white lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                     }
                   >
                     {text}
