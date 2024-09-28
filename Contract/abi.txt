@@ -100,11 +100,6 @@
 				"internalType": "uint256",
 				"name": "_tripId",
 				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_fare",
-				"type": "uint256"
 			}
 		],
 		"name": "completeTrip",
@@ -127,7 +122,20 @@
 		],
 		"name": "createTrip",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "deployer",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -258,61 +266,9 @@
 		"name": "getRiderTrips",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "tripId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "riderAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "driverAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "origin",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "destination",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "startTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "endTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "fare",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum ridex.TripStatus",
-						"name": "status",
-						"type": "uint8"
-					},
-					{
-						"internalType": "uint256",
-						"name": "transactionId",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct ridex.Trip[]",
+				"internalType": "uint256[]",
 				"name": "",
-				"type": "tuple[]"
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -458,6 +414,13 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "withraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]

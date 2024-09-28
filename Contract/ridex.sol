@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 // Smart Contract
-contract {
+contract ridex {
     //  ========= struct declarations start ============
     struct Driver {
         string name;
@@ -10,6 +10,8 @@ contract {
         bool isActive;
         uint256[] tripIds;
     }
+
+    address public deployer  = msg.sender;
 
     struct Trip {
         uint256 tripId;
@@ -82,6 +84,7 @@ contract {
 
     function acceptTrip(uint256 _tripId) public {
         require(drivers[msg.sender].isActive, "Driver is not active");
+
         Trip storage trip = trips[_tripId];
         require(trip.status == TripStatus.Created, "Trip is not available");
 
@@ -93,7 +96,7 @@ contract {
         emit TripAccepted(_tripId, msg.sender);
     }
 
-    function completeTrip(uint256 _tripId, uint256 _fare) public {
+    function completeTrip(uint256 _tripId) public {
         Trip storage trip = trips[_tripId];
         require(
             trip.driverAddress == msg.sender,
@@ -102,7 +105,6 @@ contract {
         require(trip.status == TripStatus.Accepted, "Trip is not in progress");
 
         trip.endTime = block.timestamp;
-        trip.fare = _fare;
         trip.status = TripStatus.Completed;
 
         transactionCounter++;
@@ -110,12 +112,14 @@ contract {
         transactions[transactionCounter] = Transaction(
             transactionCounter,
             _tripId,
-            _fare,
+            trip.fare,
             block.timestamp
         );
-
-        emit TripCompleted(_tripId, _fare);
-        emit TransactionRecorded(transactionCounter, _tripId, _fare);
+        uint256 money = trip.fare*100;
+        money = trip.fare/90;
+        payable(msg.sender).transfer(money);
+        emit TripCompleted(_tripId, trip.fare);
+        emit TransactionRecorded(transactionCounter, _tripId, trip.fare);
     }
 
     function getDriverDetails(
@@ -147,16 +151,15 @@ contract {
     function createTrip(
         string memory _origin,
         string memory _destination
-    ) public {
+    ) payable public {
         require(
             (drivers[msg.sender].licenseNumber == 0),
             "Driver cannot create a trip"
         );
-
+        require(msg.value>0,"empty");
         if (riders[msg.sender].length == 0) {
             riders[msg.sender] = new uint256[](0);
         }
-
         tripCounter++;
         trips[tripCounter] = Trip(
             tripCounter,
@@ -166,7 +169,7 @@ contract {
             _destination,
             0,
             0,
-            0,
+            msg.value,
             TripStatus.Created,
             0
         );
@@ -174,17 +177,10 @@ contract {
         emit TripCreated(tripCounter, msg.sender);
     }
 
-    function getRiderTrips() public view returns (Trip[] memory) {
+    function getRiderTrips() public view returns (uint256[] memory) {
         require(riders[msg.sender].length != 0, "Rider does not exists");
-
         uint256[] memory tripIdsArr = riders[msg.sender];
-        Trip[] memory tripsArr = new Trip[](tripIdsArr.length);
-
-        for (uint i = 0; i < tripIdsArr.length; i++) {
-            tripsArr[i] = (trips[tripIdsArr[i]]);
-        }
-
-        return tripsArr;
+        return tripIdsArr;
     }
 
     // ------------------------- rider specific function declarations end ----------------------------
@@ -220,6 +216,11 @@ contract {
             trip.status,
             trip.transactionId
         );
+    }
+
+    function withraw() public{
+        require(msg.sender==deployer,"you are not deployer");
+        payable(msg.sender).transfer(address(this).balance);
     }
 
     function getTransactionDetails(
