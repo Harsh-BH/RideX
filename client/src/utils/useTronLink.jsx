@@ -14,7 +14,7 @@ export const TronLinkProvider = ({ children }) => {
         setTronWebInstalled(true);
         const defaultAccount = window.tronWeb.defaultAddress.base58;
         setAccount(defaultAccount); // Set the connected account
-
+        setContract();
       } else {
         console.log("TronWeb not available. Ensure that TronLink is installed.");
         setTronWebInstalled(false);
@@ -32,9 +32,6 @@ export const TronLinkProvider = ({ children }) => {
         const connectedAccount = window.tronWeb.defaultAddress.base58;
         setAccount(connectedAccount); // Set account if already connected
         console.log("Connected to TronLink with account:", connectedAccount);
-        setInterval(async () => {
-          await setContract();
-        }, 3000);
         console.log("Contract set successfully");
       } else {
         console.error("TronWeb is not ready. Please ensure TronLink is installed and connected.");
