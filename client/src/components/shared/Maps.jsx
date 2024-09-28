@@ -113,11 +113,20 @@ const Maps = () => {
 
   return (
     <div style={{ position: "relative", marginTop: "50px" }}> {/* Adjust the margin as needed */}
-      <MapContainer
-        center={defaultPosition} // Initial default center
-        zoom={20}
-        style={{ height: "70vh", width: "100%", position: "relative", zIndex: 1 }}
-      >
+     
+
+<MapContainer
+  center={defaultPosition} // Initial default center
+  zoom={20}
+  style={{
+    height: "70vh",
+    width: "100%",
+    position: "relative",
+    zIndex: 1,
+    borderRadius: "15px", // This will give the map rounded corners
+    overflow: "hidden", // Ensure content inside respects the rounded corners
+  }}
+>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

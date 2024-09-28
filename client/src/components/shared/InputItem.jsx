@@ -12,7 +12,7 @@ function InputItem({ type }) {
   const [suggestions, setSuggestions] = useState([]); // For holding location suggestions
 
   useEffect(() => {
-    setPlaceholder(type === "source" ? "Pickup Location" : "Dropoff Location");
+    setPlaceholder(type === "source" ? "Enter your pick-up location" : "Enter your destination");
   }, [type]);
 
   // Fetch location suggestions from Nominatim
@@ -56,17 +56,16 @@ function InputItem({ type }) {
   };
 
   return (
-    <div className="bg-white p-3 rounded-lg mt-3 flex items-center gap-3 shadow-md">
+    <div className="relative bg-gray-800 p-4 rounded-lg shadow-md flex items-center">
       <img
         src={type === "source" ? sourceImg : destImg}
         alt={type}
-        className="w-5 h-5"
+        className="w-6 h-6 mr-4"
       />
 
-      <div className="w-full relative">
-        {/* Input field for searching locations */}
+      <div className="w-full">
         <input
-          className="w-full outline-none bg-transparent border-none text-gray-700 placeholder-gray-400 text-sm"
+          className="w-full bg-transparent text-white border border-gray-500 focus:border-white rounded-lg py-2 px-4 placeholder-gray-400 focus:outline-none text-lg transition-all ease-in-out duration-300"
           value={value?.label || ""}
           placeholder={placeholder}
           onChange={(e) => {
@@ -77,7 +76,7 @@ function InputItem({ type }) {
 
         {/* Render location suggestions */}
         {suggestions.length > 0 && (
-          <ul className="absolute bg-white z-50 shadow-lg max-h-40 overflow-y-auto w-full rounded-lg mt-1">
+          <ul className="absolute bg-white z-50 shadow-lg max-h-40 overflow-y-auto w-full rounded-lg mt-2">
             {suggestions.map((suggestion) => (
               <li
                 key={suggestion.place_id}
@@ -95,7 +94,3 @@ function InputItem({ type }) {
 }
 
 export default InputItem;
-
-InputItem.propTypes = {
-  type: String,
-};

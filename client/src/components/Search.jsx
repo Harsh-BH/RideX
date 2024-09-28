@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import InputItem from "./shared/InputItem";
-import CarListOption from "./CarListOption";
 import { SourceContext } from "../context/SourceContext";
 import { DestinationContext } from "../context/DestinationContext";
 
@@ -41,16 +40,23 @@ function Search({ setDistance }) {
   };
 
   return (
-    <div>
-      <div className="p-2 md:pd-6 border-[2px] rounded-xl">
-        <p className="text-[20px] font-bold p-3">Get a ride</p>
-        <InputItem type="source" />
-        <InputItem type="destination" />
+    <div className="bg-gray-900 p-10 rounded-lg shadow-lg">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-6">
+        <div>
+          <p className="text-white mb-4 font-extrabold text-2xl md:text-4xl">Pick-Up Location</p>
+          <InputItem type="source" />
+        </div>
+        <div>
+          <p className="text-white mb-4 font-extrabold text-2xl md:text-4xl">Destination</p>
+          <InputItem type="destination" />
+        </div>
+      </div>
+      <div className="flex justify-center mt-8">
         <button
-          className="p-3 bg-black w-full mt-5 text-white rounded-lg"
+          className="py-3 px-10 bg-teal-500 hover:bg-teal-600 text-white rounded-full text-lg font-semibold"
           onClick={calculateDistance}
         >
-          Search
+          Find Ride
         </button>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useTronLink } from "../../utils/useTronLink.jsx"; // Import the hook
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { BsSearchHeart } from "react-icons/bs";
 
 const NAV_LINKS = [
   { text: "Book a Ride", link: "/book-ride" },
@@ -21,24 +22,14 @@ const Navbar = () => {
           
 
           {/* Search Bar */}
-          <div className="relative w-[40%] flex justify-center ml-24">
+          <div className="relative w-[30%] flex justify-center ml-24">
             <input
               type="text"
               placeholder="Enter Destination"
-              className="w-full bg-white bg-opacity-20 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full py-2 pl-10 pr-3 shadow-sm"
+              className="w-full bg-gray-400 bg-opacity-20 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full py-2 pl-10 pr-3 shadow-sm"
             />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 3a7 7 0 100 14 7 7 0 000-14zM10 1a9 9 0 110 18A9 9 0 0110 1z"
-                clipRule="evenodd"
-              />
-            </svg>
+               <BsSearchHeart  className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600"/>
+            
           </div>
 
           {/* Navigation Links */}
@@ -47,7 +38,7 @@ const Navbar = () => {
               <NavLink
                 key={text}
                 to={link}
-                className="text-black font-semibold hover:text-gray-700 transition-all"
+                className="text-white font-semibold hover:text-gray-700 transition-all"
               >
                 {text}
               </NavLink>

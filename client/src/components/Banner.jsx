@@ -5,6 +5,7 @@ import { SourceContext } from "../context/SourceContext";
 import { DestinationContext } from "../context/DestinationContext";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { Link } from "react-router-dom";
+import Navbar from "./shared/Navbar";
 
 const Banner = () => {
   const [start, setStart] = useState(null);
@@ -42,11 +43,14 @@ const Banner = () => {
   };
 
   return (
+    <>
+  
     <LoadScript
       libraries={["places"]}
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
     >
 <div className="w-full h-[680px] flex items-center justify-center bg-gray-100 rounded-b-full">
+  
   <div className="container-lg flex items-center justify-between px-5 h-[555px]">
     <div className="container h-[383px]">
       {/* Left side */}
@@ -173,6 +177,7 @@ const Banner = () => {
 
 
     </LoadScript>
+    </>
   );
 };
 

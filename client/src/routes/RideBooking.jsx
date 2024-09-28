@@ -12,7 +12,6 @@ const RideBookingPage = () => {
 
   // Simulate loading for the map and search components
   useEffect(() => {
-    // Assuming loading is happening while setting up components (e.g., fetching map data)
     setTimeout(() => {
       setLoading(false); // Simulate loading complete after 2 seconds
     }, 1000); // Adjust time as needed
@@ -23,34 +22,38 @@ const RideBookingPage = () => {
       libraries={["places"]}
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
     >
-   
       {loading ? (
         <div>
-          <BikeLoader /> 
+          <BikeLoader />
         </div>
       ) : (
         <>
-        <Navbar/>
-        <div className="min-h-screen flex flex-col gap-0 md:gap-5 pt-24">
-          <div className="h-[60vh] flex flex-col md:flex-row gap-0 md:gap-5">
-            {/* Search Section */}
-            <div className="md:w-1/3 h-full p-4">
-              <Search setDistance={setDistance} />
+          <div className="min-h-screen bg-gray-900 text-white">
+            <Navbar />
+
+            {/* Centered Map Section */}
+            <div className="flex justify-center w-full p-6">
+              <div className="w-full md:w-[80%] min-h-[50vh] h-auto rounded-xl overflow-hidden">
+                <Maps />
+              </div>
             </div>
 
-            {/* Map Section */}
-            <div className="md:w-2/3 h-full relative flex-grow">
-              <Maps />
+            {/* Search Section placed below the map */}
+            <div className="flex justify-center w-full p-6">
+              <div className="w-full md:w-[80%]">
+                <Search setDistance={setDistance} />
+              </div>
             </div>
+
+            {/* Display CarListOption once distance is available */}
+            {distance && (
+              <div className="flex justify-center w-full p-6 bg-white text-black">
+                <div className="w-full md:w-[60%]">
+                  <CarListOption distance={distance} />
+                </div>
+              </div>
+            )}
           </div>
-
-          {/* Display CarListOption once distance is available */}
-          {distance && (
-            <div className="p-4 bg-white mt-6">
-              <CarListOption distance={distance} />
-            </div>
-          )}
-        </div>
         </>
       )}
     </LoadScript>
