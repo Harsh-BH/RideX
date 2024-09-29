@@ -33,7 +33,7 @@ const RideBookingPage = () => {
 
             {/* Centered Map Section */}
             <div className="flex justify-center w-full p-6">
-              <div className="w-full md:w-[80%] min-h-[50vh] h-auto rounded-xl overflow-hidden">
+              <div className="w-full md:w-[80%] min-h-[50vh] h-auto rounded-xl overflow-hidden relative top-8">
                 <Maps />
               </div>
             </div>
