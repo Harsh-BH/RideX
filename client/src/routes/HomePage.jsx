@@ -13,7 +13,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="bg-black">
+    <div className="bg-gray-950">
       {/* Conditionally render the video */}
       {showVideo && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black z-50 animate-fade-out">
