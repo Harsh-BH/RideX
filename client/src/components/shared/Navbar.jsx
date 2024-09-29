@@ -26,9 +26,15 @@ const Navbar = () => {
         <div className="flex flex-wrap justify-between items-center mx-auto md:px-20">
           {/* Logo */}
           <div className="flex items-center">
-            <NavLink to="/" className="flex items-center">
-              <p className="text-2xl font-bold text-white">RideX</p>
-            </NavLink>
+          <NavLink to="/" className="flex items-center">
+  <img 
+    src="/DOC-20240929-WA0041_x16_fast (1).jpg" // Path from the public folder
+    alt="RideX Logo" 
+    className="w-12 h-12 mr-2" // Adjust width and height as needed
+  />
+  <p className="text-2xl font-bold text-white">RideX</p>
+</NavLink>
+
             <button
               data-collapse-toggle="mobile-menu"
               type="button"
