@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <header>
-      <nav className="w-[90%] fixed top-0 left-1/2 transform -translate-x-1/2 backdrop-blur-md z-10 px-8 py-4 mt-2 border-b-4 border-white rounded-lg">
+      <nav className="w-[90%] fixed top-0 left-1/2 transform -translate-x-1/2 backdrop-blur-md bg-main bg-opacity-60 z-10 px-8 py-4 mt-2 border-b-4 border-white rounded-lg">
         <div className="flex flex-wrap justify-between items-center mx-auto md:px-20">
           {/* Logo */}
           <div className="flex items-center">
