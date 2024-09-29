@@ -5,10 +5,12 @@ import Navbar from "../components/shared/Navbar";
 import BikeLoader from "../components/Loader/BikeLoader";
 import carImage from "../assets/car-illustration.jpeg";  // Add your car illustration path
 import "./RiderTrips.css";  // Import the CSS file here
+import Maps from "../components/shared/Maps";
 
 const RiderTrips = () => {
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [acceptedTrips, setAcceptedTrips] = useState(new Set()); // State to track accepted trips
 
   const { ridexContract, account } = useTronLink(); 
  
@@ -68,59 +70,79 @@ const RiderTrips = () => {
     }, 1000);
   }, []);
 
+  // Function to handle accepting a trip
+  const handleAcceptTrip = async (tripId) => {
+    const result = await ridexContract.acceptTrip(Number(tripId)).send({
+      feeLimit: 100_000_000,
+      callValue: 0,
+      shouldPollResponse: true,
+    });
+    console.log("Trip Accepted:", result);
+    setAcceptedTrips((prev) => new Set(prev).add(Number(tripId))); // Add tripId to acceptedTrips set
+  };
+
   return (
-    <>
+    <div  className="bg-main">
       {loading ? (
         <BikeLoader />
       ) : (
         <>
           <Navbar />
-          <div className="rider-trips-layout">
-            <div className="trips-details-section">
-              <h5 className="trip-list-title">
-                Rider Trips List
+          <div className="rider-trips-layout flex flex-col h-full overflow-y-hidden">
+            <div className="h-[60vh] w-full relative top-24 px-20 flex justify-evenly">
+              <div className="h-full w-[40%] bg-[url(./assets/img3.jpg)] bg-cover rounded-2xl border-2 border-submain"></div>
+              <div className="w-[40%] relative top-[-50px]">
+                <Maps/>
+              </div>
+            </div>
+            <div className="relative top-32">
+              <h5 className="trip-list-title border-b-2 border-white w-fit text-[30px] font-bold">
+                RIDER TRIP REQUESTS
               </h5>
-              <ul className="trip-list">
+              <div className="trip-list flex flex-col gap-8 justify-cevenly">
                 {trips.map((trip, index) => (
-                  <li key={index} className="trip-item">
-                    <div className="trip-details">
-                      <p className="trip-id">Trip ID: {Number(trip[0])}</p>
-                      <p className="name"><strong>Origin:</strong> {trip[3]}</p>
-                      <p className="name"><strong>Destination:</strong> {trip[4]}</p>
-                      <p className="name"><strong>Fare:</strong> {Number(trip[7]) / 1000000} TRX</p>
-                      <p className={`trip-status ${TripStatus[trip[8]] === "Created" ? "status-created" : TripStatus[trip[8]] === "Accepted" ? "status-accepted" : TripStatus[trip[8]] === "Completed" ? "status-completed" : "status-cancelled"}`}>
+                  <li key={index} className="">
+                    <div className="trip-details flex w-[93vw] justify-center gap-4 font-semibold text-[20px]  py-8 px-6 items-center rounded-xl bg-submain bg-opacity-25 shadow-xl">
+                      <p className="w-[100px]">TRIP ID: {Number(trip[0])}</p>
+                      <div className="flex gap-2 justify-center items-center"> FROM:
+                      <p className="w-[20vw] h-[5vh] bg-gray-300 rounded overflow-auto p-2"> {trip[3]}</p>
+                      </div>
+                      <div className="flex gap-2 justify-center items-center">TO:
+                      <p className="w-[20vw] h-[5vh] bg-gray-300 rounded overflow-auto p-2"> {trip[4]}</p>
+                      </div>
+                      <div className="w-44 h-[5vh]"><strong>Fare:</strong> {Number(trip[7]) / 1000000} TRX</div>
+                      <p className={` ${TripStatus[trip[8]] === "Created" ? "status-created text-white" : TripStatus[trip[8]] === "Accepted" ? "status-accepted text-blue-500" : TripStatus[trip[8]] === "Completed" ? "status-completed text-green-400" : "status-cancelled text-red-500"}`}>
                         <strong>Status:</strong> {TripStatus[trip[8]] || "Unknown"}
                       </p>
-                      <button
-                      onClick={async()=>{
-                        const result = await ridexContract.acceptTrip(Number(trip[0])).send({
-                          feeLimit: 100_000_000,
-                          callValue: 0,
-                          shouldPollResponse: true,
-                        });
-                        console.log("Trip Accepted:", result);
-                      }}>Accept </button> 
-                      <button
-                      onClick={async()=>{
-                        const result = await ridexContract.completeTrip(Number(trip[0])).send({
-                          feeLimit: 100_000_000,
-                          callValue: 0,
-                          shouldPollResponse: true,
-                        });
-                        console.log("Trip Completed:", result);
-                      }}> Complete Trip</button>
+
+                      {/* Conditionally render Accept or Complete Trip button */}
+                      {!acceptedTrips.has(Number(trip[0])) ? (
+                        <button className="px-4 py-2 rounded-full w-[200px] bg-green-500 hover:bg-green-600 transition"
+                          onClick={() => handleAcceptTrip(Number(trip[0]))}>
+                          Accept
+                        </button>
+                      ) : (
+                        <button className="px-4 py-2 rounded-full w-[200px] bg-red-500"
+                          onClick={async () => {
+                            const result = await ridexContract.completeTrip(Number(trip[0])).send({
+                              feeLimit: 100_000_000,
+                              callValue: 0,
+                              shouldPollResponse: true,
+                            });
+                            console.log("Trip Completed:", result);
+                          }}>
+                          Complete Trip
+                        </button>
+                      )}
                     </div>
                   </li>
                 ))}
-              </ul>
-            </div>
-            <div className="image-section">
-              <img src={carImage} alt="Car Illustration" className="car-image" />
+              </div>
             </div>
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 
