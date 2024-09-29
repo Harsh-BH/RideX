@@ -1,11 +1,12 @@
 import { useTronLink } from "../../utils/useTronLink.jsx"; // Import the hook
 import { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import "./Navbar.css"
 
 const NAV_LINKS = [
   { text: "Book a Ride", link: "/book-ride" },
   { text: "My Trips", link: "/rider/trips" },
-  { text: "Notifications", link: "/notification-settings" },
+  { text: "Driver", link: "/rider/DriverTrips2" },
   { text: "Become a Driver", link: "/driver-register" },
 ];
 
@@ -52,6 +53,26 @@ const Navbar = () => {
             </button>
           </div>
 
+          {/* Navigation Links */}
+          <div className={`${isOpen ? "" : "hidden"} lg:flex lg:w-auto`}>
+            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+              {NAV_LINKS.map(({ text, link }) => (
+                <li key={text}>
+                  <NavLink
+                    to={link}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "capitalize block py-2 pr-4 pl-3 text-white font-bold lg:text-primary-700 lg:p-0 dark:text-white nav-link-active"
+                        : "capitalize block py-2 pr-4 pl-3 text-white font-semibold lg:p-0 hover:text-primary-700 transition-all duration-300 ease-in-out nav-link"
+                    }
+                  >
+                    {text}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Action buttons */}
           <div className="flex items-center gap-8">
             {tronWebInstalled ? (
@@ -84,28 +105,6 @@ const Navbar = () => {
               </button>
             )}
           </div>
-
-          {/* Navigation Links */}
-          <div className={`${isOpen ? "" : "hidden"} lg:flex lg:w-auto`}>
-            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-              {NAV_LINKS.map(({ text, link }) => (
-                <li key={text}>
-                  <NavLink
-                    to={link}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "capitalize block py-2 pr-4 pl-3 text-white font-bold lg:text-primary-700 lg:p-0 dark:text-white"
-                        : "capitalize block py-2 pr-4 pl-3 text-white font-semibold lg:p-0 hover:text-primary-700"
-                    }
-                  >
-                    {text}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          
         </div>
       </nav>
     </header>

@@ -8,8 +8,7 @@ import {
 import CarListItem from "./CarListItem";
 import { CarListData } from "../data/data";
 import driverAnimation from "./../assets/driver-animation.mp4";
-import { CONTRACT_ADDRESS } from "../constant";
-import abi from "./../abi/contract.abi.json";
+
 import { useWriteContract } from "wagmi";
 import { SourceContext } from "../context/SourceContext";
 import { DestinationContext } from "../context/DestinationContext";
