@@ -6,7 +6,7 @@ import Footer from "../components/shared/Footer";
 
 const HomePage = () => {
   return (
-    <div className="bg-black">
+    <div className="bg-gray-950">
     <Navbar/>
       <Banner />
 
