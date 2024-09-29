@@ -42,7 +42,7 @@ During the development of this project, several challenges were encountered:
 
 ## Demo Video
 
-[Watch the project demo video]((https://youtu.be/q01snw8rhq4))
+[Watch the project demo video](https://youtu.be/q01snw8rhq4)
 
 ## Getting Started
 
