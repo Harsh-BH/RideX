@@ -84,12 +84,12 @@ const Maps = () => {
   const defaultPosition = [51.505, -0.09]; // Default position if live location isn't available
 
   return (
-    <div style={{ position: "relative", marginTop: "100px" }}>
+    <div style={{ position: "relative", marginTop: "50px" }}>
       <MapContainer
         center={defaultPosition} // Initial default center
         zoom={20}
         style={{
-          height: "70vh",
+          height: "60vh",
           width: "100%",
           position: "relative",
           zIndex: 1,

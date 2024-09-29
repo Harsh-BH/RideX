@@ -1,5 +1,5 @@
 import styles from "./../styles/Notification.module.css";
-
+import Maps from "../components/shared/Maps";
 import { useCallback, useEffect , useState } from "react";
 // Wagmi Imports
 import { useAccount, useSignMessage } from "wagmi";
@@ -47,12 +47,16 @@ const NotificationSettings = () => {
   };
 
   // Subscription
+  const [isAccepted, setIsAccepted] = useState(true)
   const { subscribe, isLoading: isSubscribing } = useSubscribe();
   const { unsubscribe, isLoading: isUnsubscribing } = useUnsubscribe();
   const [loading, setLoading] = useState(true); // New state to handle loading
 
   const { data: subscription } = useSubscription();
   const isSubscribed = Boolean(subscription);
+  const handleClick = () => {
+    setIsAccepted(!isAccepted); // Toggle state
+  };
 
   // Handle Test Notification
   //   const handleTestNotification = async () => {
@@ -99,51 +103,35 @@ const NotificationSettings = () => {
     ) : (
     <>
     <Navbar/>
-    <div className="h-screen">
-      <main className={styles.main}>
-        <div className={styles.card}>
-          <h1> W3I Stable Test</h1>
-          <div className={styles.cardContainer}>
-            <div className={styles.btnContainer}>
-              <span>Connect Wallet</span>
-              <w3m-button />
-            </div>
-            <div className={styles.btnContainer}>
-              <span>{isRegistered ? `Registered` : `Not Registered`}</span>
-              <button
-                // disabled={isRegistering || isRegistered}
-                className={`${styles.btn} ${!isRegistered && styles.btnInfo}`}
-                onClick={handleRegistration}
-              >
-                {isRegistered ? "Already Registered" : "Register"}
-              </button>
-            </div>
-            <div className={styles.btnContainer}>
-              <span>{isSubscribed ? `Subscribed` : `Not Subscribed`}</span>
-              <button
-                disabled={isSubscribing || isUnsubscribing}
-                className={`${styles.btn} ${!isSubscribed && styles.btnInfo}`}
-                onClick={isSubscribed ? unsubscribe : subscribe}
-              >
-                {isSubscribed ? "Unsubscribe" : "Subscribe"}
-              </button>
-            </div>
-            {/* <div className={styles.btnContainer}>
-              <span>Test Notification</span>
-
-              <button
-                disabled={!isRegistered && !isSubscribed}
-                className={styles.btn}
-                onClick={handleTestNotification}
-              >
-                Test Notification
-              </button>
-            </div> */}
-            <hr />
-          </div>
-          {/* <Messages /> */}
+    <div className="h-[120vh] bg-main flex flex-col">
+      <div className="h-[60vh] w-full relative top-24 px-20 flex justify-evenly">
+        <div className="h-full w-[40%] bg-[url(./assets/img3.jpg)] bg-cover rounded-2xl border-2 border-submain"></div>
+        <div className="w-[40%] relative top-[-50px]">
+          <Maps/>
         </div>
-      </main>
+      </div>
+
+    <div  className="h-[40vh] w-full relative top-32 flex flex-col gap-4">
+      <div className="font-bold text-white text-[28px] relative left-44 border-b-2 border-white w-56">YOUR REQUESTS</div>
+      <div className="h-[10vh] w-full flex items-center justify-center gap-8 text-white font-semibold">
+        <div>AT 11:59PM</div>
+        <div className="flex gap-2">FROM:
+        <div className="w-[20vw] h-[30px] bg-gray-300 rounded"></div>
+        </div>
+        
+        <div className="flex gap-2">TO:
+        <div className="w-[20vw] h-[30px] bg-gray-300 rounded"></div>
+        </div>
+        
+        <button
+      className={`px-4 py-2 rounded-full w-[100px] ${isAccepted ? 'bg-green-500' : 'bg-red-500'} text-white`}
+      onClick={handleClick}
+    >
+      {isAccepted ? 'ACCEPT' : 'END'}
+    </button>
+      </div>
+    </div>
+
     </div>
     </>
     )}

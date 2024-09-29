@@ -3,6 +3,10 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      colors: {
+        main:'#3F3967',
+        submain: '#788ACB',
+      },
       animation: {
         'gradient-xy': 'gradient 15s ease infinite',
         'fade-in': 'fadeIn 2s ease-out  3.5s',
