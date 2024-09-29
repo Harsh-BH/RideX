@@ -27,7 +27,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center">
             <NavLink to="/" className="flex items-center">
-              <p className="text-2xl font-bold text-gray-400">RideX</p>
+              <p className="text-2xl font-bold text-white">RideX</p>
             </NavLink>
             <button
               data-collapse-toggle="mobile-menu"
