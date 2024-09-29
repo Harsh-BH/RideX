@@ -8,19 +8,10 @@ import "./RiderTrips.css";  // Import the CSS file here
 
 const RiderTrips = () => {
   const [trips, setTrips] = useState([]);
-  const [details, setDetails] = useState(null); 
   const [loading, setLoading] = useState(true);
 
   const { ridexContract, account } = useTronLink(); 
-
-  // Define the TripStatus object here
-  const TripStatus = {
-    0: "Created",
-    1: "Accepted",
-    2: "Completed",
-    3: "Cancelled",
-  };
-
+ 
   const fetchRiderTrips = async () => {
     if (!account) {
       toast.error("Please connect to TronLink.");
@@ -29,11 +20,11 @@ const RiderTrips = () => {
 
     try {
       if (ridexContract) {
-        const result = await ridexContract.getRiderTrips().call();
-        result.map((tripId) => {
-          getTripDetails(Number(tripId));
-        });
-        console.log("Trips fetched successfully:", result);
+        const result = await ridexContract.tripCounter().call();
+
+        for(let i = 0; i < result; i++){
+          getTripDetails(i);
+        }
       } else {
         console.error("Ridex contract is not set.");
       }
@@ -59,10 +50,17 @@ const RiderTrips = () => {
       toast.error("Error fetching trip details: " + error.message);
     }
   };
+  
+  const TripStatus = {
+    0: "Created",
+    1: "Accepted",
+    2: "Completed",
+    3: "Cancelled",
+  };
 
   useEffect(() => {
-    fetchRiderTrips();
-  }, [account, ridexContract]);
+    fetchRiderTrips(); 
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -93,6 +91,24 @@ const RiderTrips = () => {
                       <p className={`trip-status ${TripStatus[trip[8]] === "Created" ? "status-created" : TripStatus[trip[8]] === "Accepted" ? "status-accepted" : TripStatus[trip[8]] === "Completed" ? "status-completed" : "status-cancelled"}`}>
                         <strong>Status:</strong> {TripStatus[trip[8]] || "Unknown"}
                       </p>
+                      <button
+                      onClick={async()=>{
+                        const result = await ridexContract.acceptTrip(Number(trip[0])).send({
+                          feeLimit: 100_000_000,
+                          callValue: 0,
+                          shouldPollResponse: true,
+                        });
+                        console.log("Trip Accepted:", result);
+                      }}>Accept </button> 
+                      <button
+                      onClick={async()=>{
+                        const result = await ridexContract.completeTrip(Number(trip[0])).send({
+                          feeLimit: 100_000_000,
+                          callValue: 0,
+                          shouldPollResponse: true,
+                        });
+                        console.log("Trip Completed:", result);
+                      }}> Complete Trip</button>
                     </div>
                   </li>
                 ))}

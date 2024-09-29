@@ -1,4 +1,4 @@
-import { LoadScript } from "@react-google-maps/api";
+
 import Maps from "../components/shared/Maps";
 import Search from "../components/Search";
 import { useState, useEffect } from "react";
@@ -18,10 +18,7 @@ const RideBookingPage = () => {
   }, []);
 
   return (
-    <LoadScript
-      libraries={["places"]}
-      googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
-    >
+   <>
       {loading ? (
         <div>
           <BikeLoader />
@@ -56,7 +53,7 @@ const RideBookingPage = () => {
           </div>
         </>
       )}
-    </LoadScript>
+ </>
   );
 };
 
