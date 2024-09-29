@@ -20,14 +20,7 @@ const App = () => {
   const [source, setSource] = useState([]);
   const [destination, setdestination] = useState([]);
 
-  const result = useReadContract({
-    abi,
-    address: CONTRACT_ADDRESS,
-    functionName: "tripCounter",
-    args: [],
-  });
 
-  console.log(result, "🥳");
 
   return (
     <TronLinkProvider>

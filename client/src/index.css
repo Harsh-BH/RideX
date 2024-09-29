@@ -29,3 +29,35 @@ body {
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
+/* Custom Scrollbar for Webkit Browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-grey-950); /* Track color */
+  border-radius: var(--rounded-sm); /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-grey-400); /* Thumb (scroll handle) color */
+  border-radius: var(--rounded-sm); /* Rounded corners */
+  border: 3px solid transparent; /* Add some space around the thumb */
+  background-clip: padding-box; /* Ensure the thumb doesn't overlap the border */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-grey-500); /* Thumb color on hover */
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-grey-700); /* Thumb color when active (clicked) */
+}
+
+/* Firefox custom scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-grey-400) var(--color-grey-950); /* Thumb color Track color */
+}
+
+/* For Edge, IE, or unsupported browsers, no custom styling */
