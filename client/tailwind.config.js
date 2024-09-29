@@ -5,12 +5,12 @@ export default {
     extend: {
       animation: {
         'gradient-xy': 'gradient 15s ease infinite',
-        'fade-in': 'fadeIn 2s ease-out',
-        'fade-in-delayed': 'fadeInDelayed 1s ease-out 1s forwards', // Adding delay to the animation
+        'fade-in': 'fadeIn 2s ease-out  3.5s',
+        'fade-in-delayed': 'fadeInDelayed 1s ease-out 4.5s forwards', // Adding delay to the animation
         'zoom-in': 'zoomIn 1.5s ease-in-out',
         'fade-out': 'fadeOut 0.5s 3.5s ease-out',
-        'slide-from-left': 'slideFromLeft 0.5s ease-out forwards',
-        'slide-from-right': 'slideFromRight 0.5s ease-out forwards',
+        'slide-from-left': 'slideFromLeft 0.5s ease-out 3.5s forwards',
+        'slide-from-right': 'slideFromRight 0.5s ease-out 3.5s forwards',
       },
       keyframes: {
         gradient: {

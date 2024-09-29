@@ -173,17 +173,17 @@ const Banner = () => {
     </div> */}
     <div className="flex justify-between items-center gap-32 h-full w-full text-white ">
       <div className="w-1/2 h-full flex flex-col justify-top items-center gap-8 relative top-[25%]">
-      <h1 className="animate-slide-from-left font-bold text-[110px]">COMFORT</h1>
-      <p className="animate-fade-in text-[14px] px-[50px] box-border w-[500px] text-left  font-semibold">RIDEX OFFERS ECO-FRIENDLY TRAVEL WITH SECURE, COMFORTABLE RIDES. OUR SUSTAINABLE PRACTICES REDUCE ENVIRONMENTAL IMPACT, WHILE ENSURING SAFETY AND COMFORT REMAIN TOP PRIORITIES FOR EVERY PASSENGER.</p>
+      <h1 className="animate-slide-from-left font-bold text-[110px] text-purple-400">COMFORT</h1>
+      <p className="animate-fade-in text-[16px] px-[50px] box-border w-[500px] text-left font-semibold text-purple-400">RIDEX OFFERS ECO-FRIENDLY TRAVEL WITH SECURE, COMFORTABLE RIDES. OUR SUSTAINABLE PRACTICES REDUCE ENVIRONMENTAL IMPACT, WHILE ENSURING SAFETY AND COMFORT REMAIN TOP PRIORITIES FOR EVERY PASSENGER.</p>
       </div>
       <div className="w-1/2 h-full flex flex-col justify-top items-center gap-8 relative top-[25%]">
       <h1 className="animate-slide-from-right font-bold text-[110px]">VOYAGES</h1>
-      <p className="animate-fade-in text-[14px] px-[100px] box-border w-[500px] text-right font-semibold">
+      <p className="animate-fade-in text-[16px] px-[100px] box-border w-[500px] text-right font-semibold">
       
       REQUEST A RIDE FOR NOW OR LATER.
       REQUEST A RIDE, HOP IN, AND GO.
       </p>
-      <Link to="/book-ride" className="opacity-0 animate-fade-in-delayed text-[20px] border-2 rounded-md font-semibold border-white px-4 py-2 hover:bg-opacity-25 hover:bg-gray-300 transition  hover:backdrop-blur-sm mr-[-150px]">
+      <Link to="/book-ride" className="opacity-0 animate-fade-in-delayed text-[20px] border-2 rounded-md font-semibold border-white px-4 py-2 hover:bg-opacity-90 hover:bg-purple-300 transition hover:scale-125 hover:backdrop-blur-sm mr-[-150px] hover:border-purple-700">
       GET STARTED
       </Link>
       </div>
