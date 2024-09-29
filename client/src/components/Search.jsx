@@ -41,7 +41,7 @@ function Search({ setDistance }) {
   };
 
   return (
-    <div className="bg-gray-900 p-10 rounded-lg shadow-lg">
+    <div className="bg-gray-900 p-10 rounded-lg border-submain shadow-lg">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-6">
         <div>
           <p className="text-white mb-4 font-extrabold text-2xl md:text-4xl">Pick-Up Location</p>

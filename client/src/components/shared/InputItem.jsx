@@ -58,7 +58,7 @@ function InputItem({ type }) {
   };
 
   return (
-    <div className="relative bg-gray-800 p-4 rounded-lg shadow-md flex items-center animated-container">
+    <div className="relative bg-submain bg-opacity-25 p-4 rounded-lg shadow-md flex items-center animated-container">
       <img
         src={type === "source" ? sourceImg : destImg}
         alt={type}

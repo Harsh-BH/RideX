@@ -25,7 +25,7 @@ const RideBookingPage = () => {
         </div>
       ) : (
         <>
-          <div className="min-h-screen bg-gray-900 text-white">
+          <div className="min-h-screen bg-main text-white">
             <Navbar />
 
             {/* Centered Map Section */}
