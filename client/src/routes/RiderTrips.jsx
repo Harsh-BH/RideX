@@ -12,7 +12,15 @@ const RiderTrips = () => {
   const [loading, setLoading] = useState(true);
 
   const { ridexContract, account } = useTronLink(); 
- 
+
+  // Define the TripStatus object here
+  const TripStatus = {
+    0: "Created",
+    1: "Accepted",
+    2: "Completed",
+    3: "Cancelled",
+  };
+
   const fetchRiderTrips = async () => {
     if (!account) {
       toast.error("Please connect to TronLink.");
@@ -51,17 +59,10 @@ const RiderTrips = () => {
       toast.error("Error fetching trip details: " + error.message);
     }
   };
-  
-  const TripStatus = {
-    0: "Created",
-    1: "Accepted",
-    2: "Completed",
-    3: "Cancelled",
-  };
 
   useEffect(() => {
-    fetchRiderTrips(); 
-  }, []);
+    fetchRiderTrips();
+  }, [account, ridexContract]);
 
   useEffect(() => {
     setTimeout(() => {
