@@ -4,12 +4,14 @@ import First from "./../assets/first.webp";
 import Navbar from "../components/shared/Navbar";
 import BikeLoader from "../components/Loader/BikeLoader";
 import { useTronLink } from "../utils/useTronLink"; // Import your custom hook for TronLink
+import "./DriverRegister.css"
 
 const DriverRegister = () => {
   const [name, setName] = useState(""); // Full name for driver registration
   const [license, setLicense] = useState(""); // Driving license for driver registration
   const { ridexContract, account, tronWebInstalled } = useTronLink(); // Destructure the contract and account from context
   const [loading, setLoading] = useState(true); // Loading state for the registration page
+  const [isPending, setIsPending] = useState(false); // To manage the registration state
 
   // registerDriver function using the contract from context
   const registerDriver = async () => {
@@ -24,6 +26,7 @@ const DriverRegister = () => {
     }
 
     try {
+      setIsPending(true); // Set pending state when the registration process starts
       if (ridexContract) {
         const result = await ridexContract.registerDriver(name, license).send({
           feeLimit: 100_000_000,
@@ -43,6 +46,8 @@ const DriverRegister = () => {
     } catch (error) {
       console.error("Error registering driver:", error.message);
       toast.error("Error registering driver: " + error.message);
+    } finally {
+      setIsPending(false); // Reset the pending state after the registration process completes
     }
   };
 
@@ -50,77 +55,68 @@ const DriverRegister = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false); // Loading finished after a timeout (for simulating real load)
-    }, 4000); // Adjust the time for your loading requirements
+    }, 1000); // Adjust the time for your loading requirements
   }, []);
 
   return (
     <>
       {loading ? (
-        <div>
-          <BikeLoader />
-        </div>
+        <BikeLoader />
       ) : (
         <>
           <Navbar />
-          <div className="w-full h-screen flex items-center justify-center bg-gray-50">
-            <div className="flex flex-col md:flex-row shadow-lg rounded-lg overflow-hidden bg-white w-full md:w-[80%] h-[80%]">
-              {/* Left Side: Driver Registration Form */}
-              <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-white">
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    registerDriver();
-                  }}
-                >
-                  <h3 className="text-3xl font-semibold text-gray-800 mb-6">
-                    Become A Driver
-                  </h3>
-                  <div className="mb-4">
-                    <label className="block text-gray-600 text-sm font-medium mb-2">
-                      Full Name
-                    </label>
-                    <input
-                      className="shadow-sm border border-gray-300 rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                      id="fullname"
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Enter your Full Name"
-                    />
-                  </div>
-                  <div className="mb-6">
-                    <label className="block text-gray-600 text-sm font-medium mb-2">
-                      Driving License Number
-                    </label>
-                    <input
-                      className="shadow-sm border border-gray-300 rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                      id="License"
-                      type="text"
-                      value={license}
-                      onChange={(e) => setLicense(e.target.value)}
-                      placeholder="Enter your Driving License Number"
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <button
-                      className="bg-blue-500 mx-auto hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline disabled:bg-blue-300"
-                      type="submit"
-                      disabled={!tronWebInstalled || !account}
-                    >
-                      Register as a Driver
-                    </button>
-                  </div>
-                </form>
-              </div>
+          <div className="background-container">
+            <div className="overlay"></div>
 
-              {/* Right Side: Image */}
-              <div className="hidden md:block w-full md:w-1/2">
-                <img
-                  src={First}
-                  alt="Driver"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            <div className="form-container">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  registerDriver();
+                }}
+              >
+                <h3 className="form-title">BECOME A DRIVER</h3>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="fullname">
+                    Full Name
+                  </label>
+                  <input
+                    className="form-input"
+                    id="fullname"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter your Full Name"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="License">
+                    Driving License Number
+                  </label>
+                  <input
+                    className="form-input"
+                    id="License"
+                    type="text"
+                    value={license}
+                    onChange={(e) => setLicense(e.target.value)}
+                    placeholder="Enter your Driving License Number"
+                    required
+                  />
+                </div>
+
+                <div className="button-container">
+                  <button
+                    className="submit-button"
+                    type="submit"
+                    disabled={isPending || !tronWebInstalled || !account}
+                  >
+                    {isPending ? "Registering..." : "Register"}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </>
