@@ -1,41 +1,33 @@
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
-
-
-import { useTronLink } from "../utils/useTronLink"; // Assuming this is where you store the contract and account
+import { useTronLink } from "../utils/useTronLink"; 
 import Navbar from "../components/shared/Navbar";
 import BikeLoader from "../components/Loader/BikeLoader";
-import { readContractsQueryKey } from "wagmi/query";
+import carImage from "../assets/car-illustration.jpeg";  // Add your car illustration path
+import "./RiderTrips.css";  // Import the CSS file here
 
 const RiderTrips = () => {
   const [trips, setTrips] = useState([]);
-  const [details, setDetails] = useState(null); // To store the trip details
+  const [details, setDetails] = useState(null); 
   const [loading, setLoading] = useState(true);
 
-  const { ridexContract, account, tronWebInstalled } = useTronLink(); // Use the TronLink context
+  const { ridexContract, account } = useTronLink(); 
  
   const fetchRiderTrips = async () => {
-
-
     if (!account) {
       toast.error("Please connect to TronLink.");
       return;
     }
 
-
     try {
       if (ridexContract) {
-
         const result = await ridexContract.getRiderTrips().call();
-        console.log(result)
-
         result.map((tripId) => {
-          console.log(Number(tripId));
           getTripDetails(Number(tripId));
         });
-        console.log("Trips fetched successfully:", trips);
+        console.log("Trips fetched successfully:", result);
       } else {
-        console.error("Ridex contract is not set. Please set the contract before calling getRiderTrips.");
+        console.error("Ridex contract is not set.");
       }
     } catch (error) {
       console.error("Error fetching rider trips:", error.message);
@@ -46,109 +38,73 @@ const RiderTrips = () => {
   const getTripDetails = async (tripId) => {
     try {
       if (ridexContract) {
-        console.log("Fetching trip details...");
         const result = await ridexContract.getTripDetails(tripId).call();
-        console.log("result of trips is :",result)
-        setTrips([...trips, result]);
-      } else {
-        console.error("Ridex contract is not set. Please set the contract before calling getTripDetails.");
+        setTrips((prevTrips) => {
+          if (!prevTrips.find(trip => Number(trip[0]) === Number(result[0]))) {
+            return [...prevTrips, result];
+          }
+          return prevTrips;
+        });
       }
     } catch (error) {
       console.error("Error fetching trip details:", error.message);
       toast.error("Error fetching trip details: " + error.message);
     }
   };
+  
   const TripStatus = {
     0: "Created",
     1: "Accepted",
     2: "Completed",
     3: "Cancelled",
   };
-  
+
   useEffect(() => {
-    fetchRiderTrips(); // Fetch trips on component load
+    fetchRiderTrips(); 
   }, []);
 
-
-
-   // Simulate loading for the registration page
   useEffect(() => {
     setTimeout(() => {
-      setLoading(false); // Loading finished after a timeout (for simulating real load)
-    }, 1000); // Adjust the time for your loading requirements
+      setLoading(false);
+    }, 1000);
   }, []);
 
   return (
     <>
-    {loading ? (
-      <div>
+      {loading ? (
         <BikeLoader />
-      </div>
-    ) : (
-      <>
-  <Navbar />
-    <div className="w-full h-screen flex items-center justify-center">
-      <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <div className="flex items-center justify-between mb-4">
-          <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
-            Rider Trips List
-          </h5>
-        </div>
-        <div className="flow-root">
-          <ul
-            role="list"
-            className="divide-y divide-gray-200 dark:divide-gray-700"
-          >
-            {trips.map((trip, index) => (
-              <li key={index} className="py-3 sm:py-4">
-                <div className="flex items-center">
-                  <div className="flex-1 min-w-0 ms-4">
-                    <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                      Trip ID: {Number(trip[0])}
-                    </p>
-                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                      Origin: {trip[3]}
-                    </p>
-                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                      Destination: {trip[4]}
-                    </p>
-                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                      Fare: {Number(trip[7])/1000000} TRX
-                    </p>
-                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Status: {TripStatus[trip[8]] || "Unknown"}
-                    </p>
-
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Trip Details Modal or Section */}
-        {details && (
-          <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow">
-            <h3 className="text-lg font-bold mb-2">Trip Details</h3>
-            <p>Trip ID: {details.tripId}</p>
-            <p>Rider Address: {details.riderAddress}</p>
-            <p>Driver Address: {details.driverAddress}</p>
-            <p>Origin: {details.origin}</p>
-            <p>Destination: {details.destination}</p>
-            <p>Fare: {details.fare} TRX</p>
-            <p>Status: {details.status}</p>
-            <p>Start Time: {new Date(details.startTime * 1000).toLocaleString()}</p>
-            <p>End Time: {new Date(details.endTime * 1000).toLocaleString()}</p>
-            <p>Transaction ID: {details.transactionId}</p>
+      ) : (
+        <>
+          <Navbar />
+          <div className="rider-trips-layout">
+            <div className="trips-details-section">
+              <h5 className="trip-list-title">
+                Rider Trips List
+              </h5>
+              <ul className="trip-list">
+                {trips.map((trip, index) => (
+                  <li key={index} className="trip-item">
+                    <div className="trip-details">
+                      <p className="trip-id">Trip ID: {Number(trip[0])}</p>
+                      <p className="name"><strong>Origin:</strong> {trip[3]}</p>
+                      <p className="name"><strong>Destination:</strong> {trip[4]}</p>
+                      <p className="name"><strong>Fare:</strong> {Number(trip[7]) / 1000000} TRX</p>
+                      <p className={`trip-status ${TripStatus[trip[8]] === "Created" ? "status-created" : TripStatus[trip[8]] === "Accepted" ? "status-accepted" : TripStatus[trip[8]] === "Completed" ? "status-completed" : "status-cancelled"}`}>
+                        <strong>Status:</strong> {TripStatus[trip[8]] || "Unknown"}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="image-section">
+              <img src={carImage} alt="Car Illustration" className="car-image" />
+            </div>
           </div>
-        )}
-      </div>
-    </div>
+        </>
+      )}
     </>
-    )}
-</>
   );
-
 };
 
 export default RiderTrips;

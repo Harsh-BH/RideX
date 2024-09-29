@@ -1,0 +1,199 @@
+/* Main layout */
+.rider-trips-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px;
+    background-color: #3f2a6e;
+    background: linear-gradient(135deg, #3f2a6e, #5b3b9d);
+    min-height: 100vh;
+    animation: fadeIn 2s ease-in-out;
+}
+
+/* Left side for trips details */
+.trips-details-section {
+    flex: 1;
+    max-width: 50%;
+    margin-right: 20px;
+    border-radius: 12px;
+    padding: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Transparent white border */
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    animation: fadeInUp 1s ease-in-out;
+    margin-top: 5rem;
+    transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
+}
+
+.trips-details-section:hover {
+    transform: translateY(-10px); /* Lift effect */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Shadow when hovered */
+}
+
+.trip-list-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-align: left;
+    letter-spacing: 1px;
+    animation: fadeIn 2s ease;
+}
+
+.trip-list {
+    list-style: none;
+    padding: 0;
+    gap: 10px;
+}
+
+.trip-item {
+    padding: 16px;
+    background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Semi-transparent white border */
+    border-radius: 8px;
+    margin-bottom: 12px;
+    backdrop-filter: blur(5px); /* Light blur for a glass effect */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 1.5s ease;
+}
+
+.trip-item:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Slight shadow on hover */
+    transform: translateY(-5px); /* Lift effect on hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trip-details {
+    font-size: 16px;
+    color: #ffffff;
+    animation: fadeInUp 1.6s ease;
+}
+
+.trip-id {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Semi-transparent border */
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.05); /* Transparent background */
+    margin-bottom: 10px;
+    animation: fadeInUp 1.7s ease;
+}
+
+.name {
+    font-size: 18px;
+    padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Semi-transparent border */
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+    margin-bottom: 10px;
+    animation: fadeInUp 1.8s ease;
+}
+
+.trip-status {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-top: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Transparent border */
+    color: #ffffff;
+    animation: fadeInUp 1.9s ease;
+}
+
+/* Status colors */
+.status-created {
+    color: #4f46e5; /* Blue for "Created" */
+}
+
+.status-accepted {
+    color: #22c55e; /* Green for "Accepted" */
+}
+
+.status-completed {
+    color: #9ca3af; /* Gray for "Completed" */
+}
+
+.status-cancelled {
+    color: #ef4444; /* Red for "Cancelled" */
+}
+
+/* Right side for image and vertical line */
+.image-section {
+    flex: 1;
+    max-width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Position relative for the line */
+    margin-top: 15rem;
+    animation: bounce 2s infinite; /* Added bounce effect */
+}
+
+/* The car image styling */
+.car-image {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Semi-transparent white border */
+    border-radius: 20px; /* Rounded corners */
+    background-color: rgba(255, 255, 255, 0.1); /* Light background behind the image */
+    padding: 10px; /* Padding between the image and the border */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Soft shadow for the image */
+    animation: fadeIn 1.2s ease, bounceImage 2s infinite;
+    position: relative; /* Ensure the line stays beside the image */
+}
+
+/* Vertical white line beside the image */
+.image-section::before {
+    content: '';
+    position: absolute;
+    left: -20px; /* Adjust the position of the line from the left edge */
+    height: 100%;
+    width: 3px; /* Line width */
+    background-color: white; /* Line color */
+    transform: skewY(-10deg); /* Add slight skew for style */
+}
+
+/* Bounce animation for the image */
+@keyframes bounceImage {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Fade in animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Bounce effect for the image section */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
