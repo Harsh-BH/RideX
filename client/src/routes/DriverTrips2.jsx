@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
-import { useTronLink } from "../utils/useTronLink"; 
+import { useTronLink } from "../utils/useTronLink";
 import Navbar from "../components/shared/Navbar";
 import BikeLoader from "../components/Loader/BikeLoader";
 import Maps from "../components/shared/Maps";
@@ -8,8 +8,10 @@ import Maps from "../components/shared/Maps";
 const RiderTrips = () => {
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { ridexContract, account } = useTronLink(); 
+  const [accountLoaded, setAccountLoaded] = useState(false); // Track when the account is loaded
+  const { ridexContract, account, tronWeb } = useTronLink();
 
+  // Fetch rider trips
   const fetchRiderTrips = async () => {
     if (!account) {
       toast.error("Please connect to TronLink.");
@@ -35,12 +37,13 @@ const RiderTrips = () => {
     }
   };
 
+  // Fetch specific trip details
   const getTripDetails = async (tripId) => {
     try {
       if (ridexContract) {
         const result = await ridexContract.getTripDetails(tripId).call();
         setTrips((prevTrips) => {
-          if (!prevTrips.find(trip => Number(trip[0]) === Number(result[0]))) {
+          if (!prevTrips.find((trip) => Number(trip[0]) === Number(result[0]))) {
             return [...prevTrips, result];
           }
           return prevTrips;
@@ -60,8 +63,20 @@ const RiderTrips = () => {
   };
 
   useEffect(() => {
-    fetchRiderTrips(); 
-  }, []);
+    const savedAccount = localStorage.getItem("tronAccount");
+    if (account || savedAccount) {
+      setAccountLoaded(true);
+      fetchRiderTrips();
+    } else {
+      setAccountLoaded(false);
+    }
+  }, [account, ridexContract]); // Fetch trips when account or ridexContract changes
+
+  useEffect(() => {
+    if (account) {
+      localStorage.setItem("tronAccount", account); // Persist the account in localStorage
+    }
+  }, [account]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -106,7 +121,7 @@ const RiderTrips = () => {
 
   return (
     <div className="bg-main">
-      {loading ? (
+      {loading || !accountLoaded ? (
         <BikeLoader />
       ) : (
         <>
@@ -122,7 +137,7 @@ const RiderTrips = () => {
               <h5 className="trip-list-title border-b-2 border-white w-fit text-[30px] font-bold">
                 RIDER TRIP REQUESTS
               </h5>
-              <div className="trip-list flex flex-col gap-8 justify-cevenly">
+              <div className="trip-list flex flex-col gap-8 justify-evenly">
                 {trips.map((trip, index) => (
                   <li key={index} className="">
                     <div className="trip-details flex w-[93vw] justify-center gap-4 font-semibold text-[20px] py-8 px-6 items-center rounded-xl bg-submain bg-opacity-25 shadow-xl">
@@ -163,4 +178,3 @@ const RiderTrips = () => {
 };
 
 export default RiderTrips;
-
