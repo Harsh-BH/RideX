@@ -49,7 +49,7 @@ const Banner = () => {
       libraries={["places"]}
       googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
     >
-<div className="w-full bg-[url('./assets/bg1.jpg')] bg-cover bg-center h-[100vh] flex items-center justify-center rounded-b-[500px]">
+<div className="w-full bg-[url('./assets/bg12.jpg')] bg-cover bg-center h-[100vh] flex items-center justify-center rounded-b-[500px]">
   {/* <div className="container-lg flex items-center justify-between px-5 h-[555px]"> */}
     {/* <div className="container h-[383px]">
       
