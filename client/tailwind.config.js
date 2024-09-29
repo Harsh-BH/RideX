@@ -7,6 +7,7 @@ export default {
         'gradient-xy': 'gradient 15s ease infinite',
         'fade-in': 'fadeIn 2s ease-out',
         'zoom-in': 'zoomIn 1.5s ease-in-out',
+        'fade-out': 'fadeOut 0.5s 3.5s ease-out'
       },
       keyframes: {
         gradient: {
@@ -20,6 +21,10 @@ export default {
         zoomIn: {
           '0%': { transform: 'scale(0.5)', opacity: 0 },
           '100%': { transform: 'scale(1)', opacity: 1 },
+        },
+        fadeOut: {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
         },
       },
     },
