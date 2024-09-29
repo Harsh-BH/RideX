@@ -1,4 +1,6 @@
 import React from "react";
+import { FaGithub } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -157,8 +159,10 @@ const Footer = () => {
       <div className="w-[600px] h-[400px] bg-white text-white rounded-3xl bg-opacity-30 backdrop-blur-xl flex flex-col justify-center items-center gap-6">
         <div className="font-semibold text-2xl">LET'S KEEP IN TOUCH</div>
         <div className="font-semibold text-center px-[70px]">FIND US ON ANY OF THESE SOCIAL MEDIA PLATFORMS, WE RESPOND WITHIN - BUSINESS DAYS</div>
-
-        daal do bhai links aur logos
+        <Link to="https://github.com/Harsh-BH/RideX" className="text-3xl">
+        <FaGithub />
+        </Link>
+        
       </div>
       
     </footer>
