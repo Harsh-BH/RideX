@@ -5,13 +5,14 @@ import "./Navbar.css"
 
 const NAV_LINKS = [
   { text: "Book a Ride", link: "/book-ride" },
-  { text: "My Trips", link: "/rider/trips" },
-  { text: "Driver", link: "/rider/DriverTrips2" },
+  { text: "My Trips", link: "/rider/trips" },  // Conditionally remove if the user is a driver
+  { text: "Driver", link: "/rider/DriverTrips2" },  // Conditionally remove if the user is NOT a driver
   { text: "Become a Driver", link: "/driver-register" },
 ];
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
+  const [isDriver, setIsDriver] = useState(null); // New state to track if the user is a driver
   const { account, tronWebInstalled, connectTronLink, disconnectTronLink, ridexContract } = useTronLink();
   const location = useLocation();
 
@@ -20,27 +21,48 @@ const Navbar = () => {
     setOpen(false); // Automatically close the mobile menu when navigating
   }, [location]);
 
-  async function checkIfDriver(){
-    const result = await ridexContract.getDriverDetails(account).call();
-    console.log("result: "+result[2]);
-    return result[2];
-  }  
-  checkIfDriver();
+  // Check if the user is a driver
+  useEffect(() => {
+    async function checkIfDriver() {
+      try {
+        if (account && ridexContract) {
+          const result = await ridexContract.getDriverDetails(account).call();
+          setIsDriver(result[2]);  // Assuming result[2] is the driver status
+        }
+      } catch (error) {
+        console.error("Error fetching driver details:", error);
+      }
+    }
+
+    if (account && ridexContract) {
+      checkIfDriver(); // Only run if the account and contract are available
+    }
+  }, [account, ridexContract]); // Re-run this effect when account or contract changes
   
+  // Filter the NAV_LINKS based on the driver's status
+  const filteredLinks = NAV_LINKS.filter(({ text }) => {
+    if (isDriver === null) return true; // Default behavior before we know the status
+    if (isDriver) {
+      return text !== "My Trips"; // Remove "My Trips" if the user is a driver
+    } else {
+      return text !== "Driver"; // Remove "Driver" if the user is NOT a driver
+    }
+  });
+
   return (
     <header>
       <nav className="w-[90%] fixed top-0 left-1/2 transform -translate-x-1/2 backdrop-blur-md bg-main bg-opacity-60 z-10 px-8 py-4 mt-2 border-b-4 border-white rounded-lg">
         <div className="flex flex-wrap justify-between items-center mx-auto md:px-20">
           {/* Logo */}
           <div className="flex items-center">
-          <NavLink to="/" className="flex items-center">
-  <img 
-    src="/DOC-20240929-WA0041_x16_fast (1).jpg" // Path from the public folder
-    alt="RideX Logo" 
-    className="w-12 h-12 mr-2" // Adjust width and height as needed
-  />
-  <p className="text-2xl font-bold text-white">RideX</p>
-</NavLink>
+            <NavLink to="/" className="flex items-center">
+              <img 
+                src="/DOC-20240929-WA0041_x16_fast (1).jpg" // Path from the public folder
+                alt="RideX Logo" 
+                className="w-12 h-12 mr-2" // Adjust width and height as needed
+              />
+              <p className="text-2xl font-bold text-white">RideX</p>
+            </NavLink>
 
             <button
               data-collapse-toggle="mobile-menu"
@@ -69,7 +91,7 @@ const Navbar = () => {
           {/* Navigation Links */}
           <div className={`${isOpen ? "" : "hidden"} lg:flex lg:w-auto`}>
             <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-              {NAV_LINKS.map(({ text, link }) => (
+              {filteredLinks.map(({ text, link }) => (
                 <li key={text}>
                   <NavLink
                     to={link}
