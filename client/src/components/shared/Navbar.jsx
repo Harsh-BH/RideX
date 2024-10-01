@@ -12,7 +12,7 @@ const NAV_LINKS = [
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
-  const { account, tronWebInstalled, connectTronLink, disconnectTronLink } = useTronLink();
+  const { account, tronWebInstalled, connectTronLink, disconnectTronLink, ridexContract } = useTronLink();
   const location = useLocation();
 
   // Close mobile menu on route change
@@ -20,6 +20,13 @@ const Navbar = () => {
     setOpen(false); // Automatically close the mobile menu when navigating
   }, [location]);
 
+  async function checkIfDriver(){
+    const result = await ridexContract.getDriverDetails(account).call();
+    console.log("result: "+result[2]);
+    return result[2];
+  }  
+  checkIfDriver();
+  
   return (
     <header>
       <nav className="w-[90%] fixed top-0 left-1/2 transform -translate-x-1/2 backdrop-blur-md bg-main bg-opacity-60 z-10 px-8 py-4 mt-2 border-b-4 border-white rounded-lg">
