@@ -24,7 +24,7 @@ const HeroSection = ({
     AVAILABLE</div>
     <div className="w-1/3 flex flex-col justify-center bg-[url('')] items-center text-5xl font-bold gap-8">
     <div className="bg-[url('./assets/AFFORDABLE.jpeg')] h-[330px] w-[330px] bg-cover rounded-lg border-2 border-purple-400"></div>
-    AFFORDABLE</div>
+    ANYWHERE</div>
     </div>
 
 
@@ -33,7 +33,7 @@ const HeroSection = ({
       <div className="w-1000px">
         <div className=" pl-32" >
           <div className="text-gray-500 font-bold text-[120px]">01</div>
-          <div className="text-left font-bold text-[30px] relative top-[-80px] left-[80px]">DRIVE WHEN YOU WANT,
+          <div className="text-left font-bold text-[30px] relative top-[-80px] left-[80px]">BECOME A DRIVER,
             <br></br>
             <div className="w-[200px] h-1 bg-purple-400"></div>
             MAKE WHAT YOU NEED
@@ -52,7 +52,7 @@ const HeroSection = ({
           <div className="text-left font-bold text-[30px] relative top-[-80px] left-[80px]">THE UBER YOU KNOW,
             <br></br>
             <div className="w-[200px] h-1 bg-purple-400"></div>
-            REIMAGINED FOR BUSINESS
+            REIMAGINED FOR BLOCKCHAIN
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@ const HeroSection = ({
           <div className="text-left font-bold text-[30px] relative top-[-80px] left-[80px]">MAKE MONEY BY
             <br></br>
             <div className="w-[200px] h-1 bg-purple-400"></div>
-            RENTING OUT YOUR CAR
+            BECOMING A DIVER
           </div>
         </div>
       </div>
@@ -79,10 +79,10 @@ const HeroSection = ({
       <div className="w-1000px">
         <div className=" pr-32" >
           <div className="text-gray-500 font-bold text-[120px]">04</div>
-          <div className="text-left font-bold text-[30px] relative top-[-80px] left-[80px] text-white">CHECK OUT WHATS
+          <div className="text-left font-bold text-[30px] relative top-[-80px] left-[80px] text-white">GET A RIDE
             <br></br>
             <div className="w-[200px] h-1 bg-purple-400"></div>
-            NEXT AT RIDEX
+            WHERE YOU WANT
           </div>
         </div>
       </div>
