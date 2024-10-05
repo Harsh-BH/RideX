@@ -9,6 +9,8 @@ contract ridex {
         uint256 licenseNumber;
         bool isActive;
         uint256[] tripIds;
+        uint16 rating;
+        uint16[] reviews;
     }
 
     address public deployer  = msg.sender;
@@ -78,7 +80,10 @@ contract ridex {
             _name,
             _licenseNumber,
             true,
-            new uint256[](0)
+            new uint256[](0),
+            0,
+             new uint16[](0)
+            
         );
     }
 
@@ -124,10 +129,37 @@ contract ridex {
 
     function getDriverDetails(
         address _driverAddress
-    ) public view returns (string memory, uint256, bool) {
+    ) public view returns (string memory, uint256, bool, uint16, uint16[] memory) {
         Driver memory driver = drivers[_driverAddress];
-        return (driver.name, driver.licenseNumber, driver.isActive);
+        return (driver.name, driver.licenseNumber, driver.isActive, driver.rating, driver.reviews);
     }
+    
+    function rateDriver(address _driver, uint16 num) public {
+        require(
+            drivers[msg.sender].licenseNumber != 0,
+            "Driver does not exist"
+        );
+    
+        Driver storage driv = drivers[_driver];
+        driv.reviews.push(num);
+    
+        uint16 sum = 0;
+        uint256 reviewCount = driv.reviews.length;
+        
+        if (reviewCount <= 10) {
+            for (uint16 i = 0; i < reviewCount; i++) {
+                sum += driv.reviews[i];
+            }
+            driv.rating = sum / uint16(reviewCount);
+        } else {
+            for (uint16 i = uint16(reviewCount - 10); i < reviewCount; i++) {
+                sum += driv.reviews[i];
+            }
+            driv.rating = sum / 10;
+        }
+    }
+
+
 
     function getDriverTrips() public view returns (Trip[] memory) {
         require(

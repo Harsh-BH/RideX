@@ -18,7 +18,7 @@ Key features include:
 ## Links 🔗
 Live Preview:- [View Web-app](https://ride-x-flax.vercel.app/)
 
-Smart Contract:- [View Contract Details](https://nile.tronscan.org/#/contract/TNas9Zs2MbVhEqc1uhqtwuf9B89WVZVmBo/transactions)
+Smart Contract:- [View Contract Details](https://nile.tronscan.org/#/contract/TRXC1yVM1TXAAwEUnoRdM6PAeQ8QoF68gt/transactions)
 
 ## Challenges Faced 🧐
 
