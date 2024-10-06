@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        main:'#3F3967',
+        main:'#3f2a6e',
         submain: '#788ACB',
       },
       animation: {
