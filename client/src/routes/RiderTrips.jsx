@@ -5,6 +5,9 @@ import Navbar from "../components/shared/Navbar";
 import BikeLoader from "../components/Loader/BikeLoader";
 import carImage from "../assets/car-illustration.jpeg";  // Add your car illustration path
 import "./RiderTrips.css";  // Import the CSS file here
+import { Link } from 'react-router-dom';
+
+
 
 const RiderTrips = () => {
   const [trips, setTrips] = useState([]);
@@ -27,6 +30,12 @@ const RiderTrips = () => {
       return;
     }
 
+
+ const handleClick = () => {
+  history.push('/review');
+};
+
+
     try {
       if (ridexContract) {
         const result = await ridexContract.getRiderTrips().call();
@@ -47,6 +56,9 @@ const RiderTrips = () => {
     try {
       if (ridexContract) {
         const result = await ridexContract.getTripDetails(tripId).call();
+        const rev = await ridexContract.getDriverDetails(account).call();
+        result.push(rev[3]);
+        console.log(result);
         setTrips((prevTrips) => {
           if (!prevTrips.find(trip => Number(trip[0]) === Number(result[0]))) {
             return [...prevTrips, result];
@@ -87,6 +99,10 @@ const RiderTrips = () => {
                   <li key={index} className="trip-item">
                     <div className="trip-details">
                       <p className="trip-id">Trip ID: {Number(trip[0])}</p>
+                      <p className="trip-id">Driver: {trip[1]} rating: {trip[10]} </p>
+                      <Link to="/review" className="trip-id">
+                        <button>Click me!</button>
+                      </Link>
                       <p className="name"><strong>Origin:</strong> {trip[3]}</p>
                       <p className="name"><strong>Destination:</strong> {trip[4]}</p>
                       <p className="name"><strong>Fare:</strong> {Number(trip[7]) / 1000000} TRX</p>
